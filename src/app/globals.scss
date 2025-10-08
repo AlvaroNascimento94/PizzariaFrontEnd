@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: 0;
+}
+
+:root{
+    --white: #fff;
+    --black: #000;
+    
+    --dark-900: #12122b;
+    --dark-700:#27273a;
+
+    --gray-100: #8a8a8a;
+    --green-900: #3fffa3;
+    --red-900: #ff3f4b;
+
+}
+
+button{
+    cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+body, input, textarea, button{
+    font: 400, 1rem sans-serif;
+}
+
+@media(max-width: 720px){
+    html{
+        font-size: 87.5%;
+    }
+}
+@media(max-width: 1080px){
+    html{
+        font-size: 93.75%;
+    }
+}
+
+body{
+    background: var(--dark-700);
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+}
