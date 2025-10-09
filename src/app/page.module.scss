@@ -94,6 +94,12 @@
 @media (max-width: 450px) {
   .login {
     background-color: var(--bege);
+    h1{
+      margin-bottom: 50px;
+    }
+    button{
+      margin-top: 50px;
+    }
   }
   .card {
     flex-direction: column;
