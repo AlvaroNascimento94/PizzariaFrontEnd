@@ -6,16 +6,14 @@
 }
 
 :root{
-    --white: #fff;
-    --black: #000;
-    
-    --dark-900: #12122b;
-    --dark-700:#27273a;
-
-    --gray-100: #8a8a8a;
-    --green-900: #3fffa3;
-    --red-900: #ff3f4b;
-
+    --bordo:#9a252e;
+    --offwhite:#f3f3f3;
+    --laranja:#f89b37;
+    --dourado:#edc565;
+    --dourado2: #daae4e;
+    --oliva: #71722e;
+    --bege:#f6f0df;
+    --black: #161526;
 }
 
 button{
@@ -28,7 +26,8 @@ a{
 }
 
 body, input, textarea, button{
-    font: 400, 1rem sans-serif;
+    /* font-weight 400, font-size 1rem e família sans-serif */
+    font: 400 1rem sans-serif;
 }
 
 @media(max-width: 720px){
