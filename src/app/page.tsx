@@ -15,8 +15,14 @@ export default function Home() {
             <Image src={pizzaria} alt="Pizzaria Logo" className={styles.imageSection} />
             <h1>Bem Vindo</h1>
             <form>
-              <input className={styles.input} type="email" required name='emal' placeholder='Digite seu email' />
-              <input type="password" required name="password" placeholder='*********' className={styles.input} />
+              <div>
+                <label htmlFor="">Email</label>
+                <input className={styles.input} type="email" required name='emal' placeholder='Digite seu email' />
+              </div>
+              <div>
+                <label htmlFor="">Password</label>
+                <input type="password" required name="password" placeholder='*********' className={styles.input} />
+              </div>
               <button type='submit'> Acessar</button>
             </form>
             <Link href='/signup'>

@@ -25,11 +25,11 @@
   gap: 16px;
   height: 100vh;
   width: 100%;
+
   h1 {
     color: var(--black);
     font-size: 32px;
     margin-bottom: 100px;
-
   }
 
   form {
@@ -43,14 +43,28 @@
     max-width: 600px;
     gap: 16px;
 
-    input {
-      height: 40px;
-      width: 100%;
-      border-radius: 10px;
-      padding: 0 8px;
+    div {
+      color: var(--black);
       font-size: 16px;
-      border: 1px solid var(--bordo);
+      margin-bottom: 4px;
+      width: 100%;
+
+      label {
+        margin-left: 10px;
+        color: var(--offwhite);
+      }
+
+      input {
+        background-color: var(--bege);
+        height: 40px;
+        width: 100%;
+        border-radius: 10px;
+        padding: 0 8px;
+        font-size: 16px;
+        border: 1px solid var(--bordo);
+      }
     }
+
     input:focus {
       box-shadow: 0 0 5px var(--bordo);
       border: 2px solid var(--bordo);
@@ -94,11 +108,39 @@
 @media (max-width: 450px) {
   .login {
     background-color: var(--bege);
-    h1{
+    h1 {
       margin-bottom: 50px;
     }
-    button{
+    button {
       margin-top: 50px;
+    }
+    form {
+      div {
+        font-size: 16px;
+        margin-bottom: 4px;
+        width: 100%;
+
+        label {
+          margin-left: 10px;
+          color: var(--oliva);
+        }
+
+        input {
+          height: 40px;
+          width: 100%;
+          border-radius: 10px;
+          padding: 0 8px;
+          font-size: 16px;
+          border: 1px solid var(--bordo);
+        }
+
+        input:focus {
+          box-shadow: 0 0 5px var(--bordo);
+          border: 2px solid var(--bordo);
+          outline: none;
+          background-color: var(--offwhite);
+        }
+      }
     }
   }
   .card {
