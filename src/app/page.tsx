@@ -3,6 +3,8 @@ import pizzaria from "../../public/pizzaria2.png"
 import Image from "next/image";
 import Link from 'next/link';
 import { api } from '@/services/api';
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 export default function Home() {
   async function handleLogin(formData: FormData) {
@@ -18,12 +20,21 @@ export default function Home() {
       const response = await api.post("/session", {
         email, password
       })
-      console.log(response.data);
-      
+      if (!response.data.token) {
+        return;
+      }
+      const time = 60 * 60 * 24 * 1000;
+      (await cookies()).set("session", response.data.token, {
+        maxAge: time,
+        path:"/",
+        httpOnly:false,
+        secure: process.env.NODE_ENV === "production"
+      })
+
     } catch (error) {
       console.log({ message: error })
     }
-    
+    redirect("/dashboard")
 
   }
   return (
