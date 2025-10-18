@@ -4,16 +4,23 @@ import Link from "next/link"
 import styles from "./styles.module.scss"
 import Image from "next/image"
 import logoimg from "../../../../../public/logo.png"
-import { LogOutIcon } from "lucide-react"
+import { User, LogOutIcon } from "lucide-react"
 import { deleteCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/hooks/useAuth"
 
 export function Header() {
     const router = useRouter()
+    const { isAdmin, loading, user, profile, can } = useAuth()
+    async function handleProfile() {
+        router.replace("/dashboard/user/profile")
+    }
+
     async function handleLogout() {
-        deleteCookie("session", {path: "/"})
+        deleteCookie("session", { path: "/" })
         router.replace("/")
     }
+
     return (
         <header className={styles.headerContainer}>
             <div className={styles.headerContent}>
@@ -25,18 +32,44 @@ export function Header() {
                 </Link>
                 <nav>
                     <div>
-                        <Link href="/dashboard/category">
-                            Categoria
-                        </Link>
-                        <Link href="/dashboard/product">
-                            Produto
-                        </Link>
+                        {!loading && (
+                            <>
+                                {(!isAdmin) && (
+                                    <Link href="/dashboard/">
+                                        Funcionarios
+                                    </Link>
+                                )}
+
+                                {(!isAdmin) && (
+                                    <Link href="/dashboard/category">
+                                        Categoria
+                                    </Link>
+                                )}
+
+                                {(!isAdmin) && (
+                                    <Link href="/dashboard/product">
+                                        Produto
+                                    </Link>
+                                )}
+                            </>
+                        )}
                     </div>
-                    <form action={handleLogout}>
-                        <button type="submit">
-                            <LogOutIcon size={24} color="#000" />
-                        </button>
-                    </form>
+                    <div>
+                        <form action={handleProfile}>
+                            <p>
+                                {user?.name}
+                            </p>
+                            <button type="submit">
+                               <User size={35} />
+                            </button>
+
+                        </form>
+                        <form action={handleLogout}>
+                            <button type="submit" className={styles.logout}>
+                                <LogOutIcon size={24} />
+                            </button>
+                        </form>
+                    </div>
                 </nav>
             </div>
         </header>
