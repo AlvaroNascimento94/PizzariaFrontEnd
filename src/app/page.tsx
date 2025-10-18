@@ -32,8 +32,10 @@ export default function Home() {
       })
 
     } catch (error) {
-      console.log({ message: error })
+      console.log("Erro ao fazer login:", error)
+      return;
     }
+    
     redirect("/dashboard")
 
   }
@@ -58,9 +60,6 @@ export default function Home() {
               </div>
               <button type='submit'> Acessar</button>
             </form>
-            <Link href='/signup'>
-              Nao possuo uma conta
-            </Link>
           </section>
         </div>
 
