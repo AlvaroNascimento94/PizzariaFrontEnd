@@ -46,7 +46,7 @@ export function Orders({ order }: OrderProps) {
     const price = order.price.toFixed(2);
 
     const statusColor: Record<string, string> = {
-        "Em Preparo": "var(--dourado)",
+        "Em Preparo": "var(--dourado2)",
         "Pronto": "var(--oliva)",
         "Entregue": "var(--bordo)",
         "Finalizado": "var(--black)",
@@ -74,7 +74,7 @@ export function Orders({ order }: OrderProps) {
                         R$ {price}
                     </div>
                     <div className={styles.time}>
-                        <p>ClienteChegou:</p>
+                        <p>Duração: </p>
                         <p>
                             {timeActive}
                         </p>
