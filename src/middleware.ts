@@ -25,7 +25,7 @@ export async function middleware(req: NextRequest) {
 async function validateToken(token: string) {
   if (!token) return false;
   try {
-    await api.get("/me", {
+    await api.get("/me/permissions", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
