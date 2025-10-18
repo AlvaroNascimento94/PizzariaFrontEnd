@@ -1,7 +1,6 @@
 import styles from './page.module.scss'
 import pizzaria from "../../public/pizzaria2.png"
 import Image from "next/image";
-import Link from 'next/link';
 import { api } from '@/services/api';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
