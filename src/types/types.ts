@@ -9,6 +9,12 @@ interface OrderData {
     name: string;
   };
 }
+interface CategoryData {
+  id: string;
+  name: string;
+  color: string;
+  icon: string;
+}
 
 
-export type { OrderData };
+export type { OrderData, CategoryData };
