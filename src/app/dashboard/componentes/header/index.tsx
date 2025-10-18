@@ -34,19 +34,19 @@ export function Header() {
                     <div>
                         {!loading && (
                             <>
-                                {(!isAdmin) && (
+                                {(isAdmin) && (
                                     <Link href="/dashboard/">
                                         Funcionarios
                                     </Link>
                                 )}
 
-                                {(!isAdmin) && (
+                                {(isAdmin) && (
                                     <Link href="/dashboard/category">
                                         Categoria
                                     </Link>
                                 )}
 
-                                {(!isAdmin) && (
+                                {(isAdmin) && (
                                     <Link href="/dashboard/product">
                                         Produto
                                     </Link>
