@@ -28,8 +28,13 @@ export default function Dashboard() {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                setOrders(response.data);
-                console.log("Pedidos carregados:", response.data);
+
+                const sortedOrders = response.data.sort((a: any, b: any) => {
+                    return a.tables.name.localeCompare(b.tables.name);
+                });
+
+                setOrders(sortedOrders);
+                console.log("Pedidos carregados e ordenados:", sortedOrders);
             } catch (error) {
                 console.error("Erro ao carregar pedidos:", error);
             } finally {
