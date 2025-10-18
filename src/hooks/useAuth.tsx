@@ -1,0 +1,90 @@
+'use client'
+
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { api } from "@/services/api";
+import { getCookieCliente } from "@/lib/cookieClient";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  banner:string;
+  active: boolean;
+}
+
+interface Profile {
+  id: string;
+  name: string;
+}
+
+interface AuthContextData {
+  user: User | null;
+  profile: Profile | null;
+  permissionsByModule: Record<string, string[]>;
+  isAdmin: boolean;
+  loading: boolean;
+  can: (systemOption: string, permission: string) => boolean;
+}
+
+const AuthContext = createContext({} as AuthContextData);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [permissionsByModule, setPermissionsByModule] = useState<Record<string, string[]>>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadUserPermissions() {
+      try {
+        const token = getCookieCliente();
+        
+        if (!token) {
+          setLoading(false);
+          return;
+        }
+
+        const response = await api.get("/me/permissions", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUser(response.data.user);
+        setProfile(response.data.profile);
+        setPermissionsByModule(response.data.permissionsByModule);
+      } catch (error) {
+        console.error("Erro ao carregar permissões:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadUserPermissions();
+  }, []);
+
+  function can(systemOption: string, permission: string): boolean {
+    return permissionsByModule[systemOption]?.includes(permission) || false;
+  }
+
+  const isAdmin = profile?.name?.toLowerCase() === "admin";
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        profile,
+        permissionsByModule,
+        isAdmin,
+        loading,
+        can,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
+}
