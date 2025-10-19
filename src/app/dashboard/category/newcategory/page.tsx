@@ -4,7 +4,7 @@ import style from "./newcategory.module.scss"
 import { useState } from "react"
 import { api } from "@/services/api"
 import { getCookieCliente } from "@/lib/cookieClient"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 
 export default function NewCategory() {
     const [name, setName] = useState("");
@@ -95,13 +95,16 @@ export default function NewCategory() {
                                 onSelect={setSelectedIcon}
                             />
                         </div>
-
-                        <button
-                            type="submit"
-                            disabled={loading}
-                        >
-                            {loading ? 'Criando...' : 'Salvar Categoria'}
-                        </button>
+                        <div className={style.buttons}>
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                id={style.confirm}
+                            >
+                                {loading ? 'Criando...' : 'Salvar Categoria'}
+                            </button>
+                            <button onClick={(e) => redirect("/dashboard/category")} id={style.cancel}> Cancelar </button>
+                        </div>
                     </form>
                 </section>
             </section>

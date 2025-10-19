@@ -14,7 +14,7 @@ export default function Category() {
     const router = useRouter()
 
     async function handleCreate() {
-        router.replace("/dashboard/category/create")
+        router.replace("/dashboard/category/newcategory")
     }
 
     useEffect(() => {
