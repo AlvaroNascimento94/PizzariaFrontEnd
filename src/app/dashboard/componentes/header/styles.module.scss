@@ -15,18 +15,13 @@
   align-items: center;
   justify-content: space-between;
 
-  a {
-    cursor: pointer;
+  
     img {
       height: 6rem;
       width: auto;
       padding-right: 1.5rem;
       transition: all 0.3s;
-
-      &:hover {
-        scale: 1.05;
-      }
-    }
+    
   }
 
   nav {

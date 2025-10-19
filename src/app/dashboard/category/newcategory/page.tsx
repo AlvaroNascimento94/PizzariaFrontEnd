@@ -61,8 +61,8 @@ export default function NewCategory() {
                     <form onSubmit={handleSubmit}>
                         <div className={style.name}>
                             <label>Nome da Categoria *</label>
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 placeholder="Ex: pizzas, drinks"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
@@ -71,16 +71,16 @@ export default function NewCategory() {
                         </div>
                         <div className={style.description}>
                             <label>Descrição (Opcional)</label>
-                            <input 
-                                type="text" 
-                                placeholder="Ex: Deliciosas pizzas artesanais"
+                            <textarea
+                                placeholder="Ex: Deliciosas pizzas artesanais feitas no forno a lenha"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
+                                rows={4}
                             />
                         </div>
-                        <div className={style.description}>
+                        <div className={style.color}>
                             <label>Cor da Categoria *</label>
-                            <input 
+                            <input
                                 type="color"
                                 value={color}
                                 onChange={(e) => setColor(e.target.value)}
@@ -90,17 +90,17 @@ export default function NewCategory() {
                             </span>
                         </div>
                         <div className={style.icon}>
-                            <IconPicker 
+                            <IconPicker
                                 selectedIcon={selectedIcon}
                                 onSelect={setSelectedIcon}
                             />
                         </div>
 
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             disabled={loading}
                         >
-                            {loading ? 'Criando...' : 'Save Categoria'}
+                            {loading ? 'Criando...' : 'Salvar Categoria'}
                         </button>
                     </form>
                 </section>
