@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getCookieCliente } from "@/lib/cookieClient";
 import { api } from "@/services/api";
 import { Plus } from "lucide-react";
-import { CardCategory } from "./CardCategory";
+import { CardCategory } from "../../../components/CardCategory";
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -14,7 +14,7 @@ export default function Category() {
     const router = useRouter()
 
     async function handleCreate() {
-        router.replace("/dashboard/category/newcategory")
+        router.push("/dashboard/category/new")
     }
 
     useEffect(() => {
