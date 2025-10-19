@@ -1,0 +1,64 @@
+.container {
+  background-color: var(--offwhite);
+  padding: 30px 20px;
+  height: 150px;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .IconComponent {
+    color: var(--laranja);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-radius: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 15px;
+  .headerIcon{
+    padding: 5px;
+    border-radius: 15px;
+  }
+
+  P {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+.cardBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  button {
+    background-color: var(--laranja);
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--laranja);
+    color: var(--offwhite);
+    box-shadow: 0 0 5px var(--black);
+    transition: all 0.5s;
+
+    &:hover {
+      background-color: var(--laranja2);
+      color: var(--offwhite);
+      box-shadow: inset 0 0 5px var(--offwhite);
+    }
+  }
+}

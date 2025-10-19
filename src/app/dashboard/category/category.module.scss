@@ -1,9 +1,3 @@
-.body{
-    background-color: var(--bege);
-    margin: auto;
-    max-width: 1440px;
-}
-
 .container{
     background-color: var(--bege);
     padding: 20px;
@@ -40,7 +34,7 @@
   min-height: calc(100vh - 15rem);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  gap: 2.5rem;
   align-content: start;
   justify-items: center; 
 }

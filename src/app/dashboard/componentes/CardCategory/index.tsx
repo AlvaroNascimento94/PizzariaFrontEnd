@@ -1,39 +1,45 @@
 'use client'
 import styles from "./cardCategory.module.scss"
-import {  useState } from "react";
 import { CategoryData } from "@/types/types";
-
 import { useRouter } from "next/navigation"
+import * as Icons from 'lucide-react'
 
 interface CategoryProps {
     category: CategoryData;
 }
 
 export function CardCategory({ category }: CategoryProps) {
-    const [timeActive, setTimeActive] = useState("");
+
+    function getIcon(iconName: string,): React.ComponentType<any> {
+        const IconComponent = (Icons as any)[iconName];
+        return IconComponent;
+    }
+
+    const IconComponent = getIcon(category.icon);
+
     const router = useRouter()
 
-      async function handleUpdate() {
+    function handleUpdate() {
         router.replace(`/dashboard/category/${category.id}`)
-    }
-    const statusColor: Record<string, string> = {
-        "Em Preparo": "var(--dourado)",
-        "Pronto": "var(--oliva)",
-        "Entregue": "var(--bordo)",
-        "Finalizado": "var(--black)",
     }
 
     return (
-        <button className={styles.container}
-            onClick={handleUpdate}>
+        <main className={styles.container}>
             <section className={styles.card}>
                 <div className={styles.cardHeader}>
-                    icon e name
+                    <div className={styles.headerIcon} style={{ background: category.color }}>
+                        <IconComponent
+                            size={30}
+                            color='white'
+                            strokeWidth={2}
+                        />
+                    </div>
+                    <p>{category.name}</p>
                 </div>
                 <div className={styles.cardBody}>
-                    <button> Editar </button>
+                    <button onClick={handleUpdate}> Editar </button>
                 </div>
             </section>
-        </button>
+        </main>
     )
 }
