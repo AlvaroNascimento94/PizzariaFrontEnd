@@ -24,18 +24,18 @@ export function Header() {
     return (
         <header className={styles.headerContainer}>
             <div className={styles.headerContent}>
-                <Link href="/dashboard">
-                    <Image alt="Logo Pizzaria"
-                        src={logoimg}
-                        priority={true}
-                        quality={100} />
-                </Link>
+                <Image alt="Logo Pizzaria"
+                    src={logoimg}
+                    priority={true}
+                    quality={100} />
                 <nav>
                     <div>
                         {!loading && (
                             <>
+                                {(profile?.name !== "Chef") && 
+                                (<Link href="/dashboard"> Mesas </Link>)}
                                 {(isAdmin) && (
-                                    <Link href="/dashboard/">
+                                    <Link href="/dashboard/employer">
                                         Funcionarios
                                     </Link>
                                 )}
@@ -60,7 +60,7 @@ export function Header() {
                                 {user?.name}
                             </p>
                             <button type="submit">
-                               <User size={35} />
+                                <User size={35} />
                             </button>
 
                         </form>

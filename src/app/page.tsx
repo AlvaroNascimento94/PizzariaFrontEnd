@@ -15,6 +15,9 @@ export default function Home() {
     if (email === "" || password === "") {
       return
     }
+
+    let redirectPath = "/dashboard";
+
     try {
       const response = await api.post("/session", {
         email, password
@@ -30,12 +33,24 @@ export default function Home() {
         secure: process.env.NODE_ENV === "production"
       })
 
+      const userResponse = await api.get("/me/permissions", {
+        headers: {
+          Authorization: `Bearer ${response.data.token}`
+        }
+      });
+
+      const userProfile = userResponse.data.profile?.name;
+      
+    if (userProfile === "Chef") {
+        redirectPath = "/dashboard/cozinha"; 
+      }
+
     } catch (error) {
       console.log("Erro ao fazer login:", error)
       return;
     }
-    
-    redirect("/dashboard")
+
+    redirect(redirectPath);
 
   }
   return (
