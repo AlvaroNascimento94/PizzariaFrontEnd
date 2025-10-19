@@ -1,21 +1,59 @@
 'use client'
 import { IconPicker } from "@/components/IconPicker"
-import style from "./newcategory.module.scss"
-import { useState } from "react"
+import style from "./categoryForm.module.scss"
+import { useState, useEffect } from "react"
 import { api } from "@/services/api"
 import { getCookieCliente } from "@/lib/cookieClient"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter, useParams } from "next/navigation"
 
-export default function NewCategory() {
+export default function CategoryForm() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [color, setColor] = useState("#ff6b35");
     const [selectedIcon, setSelectedIcon] = useState("");
     const [loading, setLoading] = useState(false);
+    const [loadingData, setLoadingData] = useState(false);
 
     const router = useRouter();
+    const params = useParams();
+    const categoryId = params.id as string;
 
-    console.log("Estado atual:", { name, description, color, selectedIcon });
+    const isEditing = categoryId !== 'new';
+
+    useEffect(() => {
+        if (isEditing) {
+            loadCategory();
+        }
+    }, [categoryId]);
+
+    async function loadCategory() {
+        setLoadingData(true);
+        try {
+            const token = getCookieCliente();
+
+            console.log("Carregando categoria ID:", categoryId);
+
+            const response = await api.get(`/category/detail/${categoryId}`, {
+
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            console.log("Dados recebidos:", response.data);
+
+            setName(response.data.name);
+            setDescription(response.data.description || "");
+            setColor(response.data.color);
+            setSelectedIcon(response.data.icon);
+        } catch (error) {
+            console.error("Erro ao carregar categoria:", error);
+            alert("Erro ao carregar dados da categoria!");
+            router.push("/dashboard/category");
+        } finally {
+            setLoadingData(false);
+        }
+    }
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -29,33 +67,61 @@ export default function NewCategory() {
 
         try {
             const token = getCookieCliente();
-
-            await api.post("/category", {
+            const data = {
                 name,
                 description,
                 color,
                 icon: selectedIcon
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+            };
 
-            alert("Categoria criada com sucesso!");
+            if (isEditing) {
+                const updateData = {
+                    ...data,
+                };
+
+                await api.put(`/category/${categoryId}`, updateData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            } else {
+                await api.post("/category", data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            }
+
             router.push("/dashboard/category");
         } catch (error) {
-            console.error("Erro ao criar categoria:", error);
-            alert("Erro ao criar categoria!");
+            console.error("Erro ao salvar categoria:", error);
+            alert(`Erro ao ${isEditing ? 'atualizar' : 'criar'} categoria!`);
         } finally {
             setLoading(false);
         }
+    }
+
+    function handleCancel() {
+        router.push("/dashboard/category");
+    }
+
+    if (loadingData) {
+        return (
+            <main className={style.container}>
+                <section className={style.body}>
+                    <section className={style.containerHeader}>
+                        <h1>Carregando...</h1>
+                    </section>
+                </section>
+            </main>
+        );
     }
 
     return (
         <main className={style.container}>
             <section className={style.body}>
                 <section className={style.containerHeader}>
-                    <h1>Nova Categoria</h1>
+                    <h1>{isEditing ? 'Editar Categoria' : 'Nova Categoria'}</h1>
                 </section>
                 <section className={style.containerBody}>
                     <form onSubmit={handleSubmit}>
@@ -101,9 +167,15 @@ export default function NewCategory() {
                                 disabled={loading}
                                 id={style.confirm}
                             >
-                                {loading ? 'Criando...' : 'Salvar Categoria'}
+                                {loading ? 'Salvando...' : isEditing ? 'Atualizar Categoria' : 'Salvar Categoria'}
                             </button>
-                            <button onClick={(e) => redirect("/dashboard/category")} id={style.cancel}> Cancelar </button>
+                            <button
+                                type="button"
+                                onClick={handleCancel}
+                                id={style.cancel}
+                            >
+                                Cancelar
+                            </button>
                         </div>
                     </form>
                 </section>
