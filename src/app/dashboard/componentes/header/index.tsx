@@ -12,6 +12,7 @@ import { useAuth } from "@/hooks/useAuth"
 export function Header() {
     const router = useRouter()
     const { isAdmin, loading, user, profile, can } = useAuth()
+    
     async function handleProfile() {
         router.replace(`/dashboard/employee/${user?.id}`)
     }
@@ -32,8 +33,8 @@ export function Header() {
                     <div>
                         {!loading && (
                             <>
-                                {(profile?.name !== "Chef") && 
-                                (<Link href="/dashboard"> Mesas </Link>)}
+                                {(profile?.name !== "Chef") &&
+                                    (<Link href="/dashboard"> Mesas </Link>)}
                                 {(isAdmin) && (
                                     <Link href="/dashboard/employee">
                                         Funcionarios
@@ -59,10 +60,19 @@ export function Header() {
                             <p>
                                 {user?.name}
                             </p>
-                            <button type="submit">
-                                <User size={35} />
+                            <button type="submit" className={styles.profileButton}>
+                                {user?.banner ? (
+                                    <img
+                                        src={`http://localhost:3333/files/${user.banner}`}
+                                        alt={user.name}
+                                        className={styles.avatar}
+                                    />
+                                ) : (
+                                    <div className={styles.avatarPlaceholder}>
+                                        <User size={24} />
+                                    </div>
+                                )}
                             </button>
-
                         </form>
                         <form action={handleLogout}>
                             <button type="submit" className={styles.logout}>
