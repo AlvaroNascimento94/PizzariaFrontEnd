@@ -1,8 +1,11 @@
 .container {
+  display: flex;
   background-color: var(--bege);
   padding: 20px;
   min-height: calc(100vh - 7rem);
   height: 100%;
+  justify-content: center;
+
 }
 .containerHeader {
   display: flex;
@@ -10,7 +13,7 @@
   align-items: center;
   margin-bottom: 24px;
   margin-right: 15px;
-
+  max-width: 1440px;
   button {
     background-color: var(--bordo);
     color: var(--offwhite);
@@ -41,6 +44,7 @@
 }
 
 .containerBody {
+    max-width: 1440px;
   padding: 0 3rem;
   min-height: calc(100vh - 15rem);
   display: grid;
