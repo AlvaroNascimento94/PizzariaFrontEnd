@@ -13,7 +13,7 @@ export function Header() {
     const router = useRouter()
     const { isAdmin, loading, user, profile, can } = useAuth()
     async function handleProfile() {
-        router.replace("/dashboard/user/profile")
+        router.replace(`/dashboard/employee/${user?.id}`)
     }
 
     async function handleLogout() {

@@ -6,18 +6,23 @@ import { getCookieCliente } from "@/lib/cookieClient";
 import { api } from "@/services/api";
 import { Plus } from "lucide-react";
 import { CardCategory } from "../../../components/CardCategory";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const router = useRouter()
-
-    async function handleCreate() {
-        router.push("/dashboard/category/new")
-    }
+    const router = useRouter();
+    const { can, loading: authLoading } = useAuth();
 
     useEffect(() => {
+        // Verifica se o usuário tem permissão para ler categorias
+        if (!authLoading && !can('Categories', 'READ')) {
+            alert('Você não tem permissão para acessar esta página!');
+            router.replace('/dashboard');
+            return;
+        }
+
         async function loadCategory() {
             try {
                 const token = getCookieCliente();
@@ -35,8 +40,29 @@ export default function Category() {
                 setLoading(false);
             }
         }
-        loadCategory();
-    }, []);
+        
+        if (!authLoading) {
+            loadCategory();
+        }
+    }, [authLoading, can, router]);
+
+    async function handleCreate() {
+        router.push("/dashboard/category/new");
+    }
+
+    // Mostra loading enquanto verifica permissões
+    if (authLoading) {
+        return (
+            <main className={style.container}>
+                <p>Verificando permissões...</p>
+            </main>
+        );
+    }
+
+    // Se não tem permissão, não renderiza nada (já redirecionou)
+    if (!can('Categories', 'READ')) {
+        return null;
+    }
 
     return (
         <main className={style.container}>

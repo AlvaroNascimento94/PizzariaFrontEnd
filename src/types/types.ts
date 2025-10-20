@@ -22,11 +22,16 @@ interface EmployeeData {
   email: string
   banner: string | null
   active: boolean
+  phone: string
   accessProfile: {
     id: string
     name: string
   }
 }
+interface AccessProfile {
+    id: string;
+    name: string;
+}
 
 
-export type { OrderData, CategoryData, EmployeeData };
+export type { OrderData, CategoryData, EmployeeData, AccessProfile };

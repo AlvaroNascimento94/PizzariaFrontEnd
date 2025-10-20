@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { api } from "@/services/api"
 import { getCookieCliente } from "@/lib/cookieClient"
 import { useRouter, useParams } from "next/navigation"
+import { useAuth } from "@/hooks/useAuth"
 
 export default function CategoryForm() {
     const [name, setName] = useState("");
@@ -17,8 +18,16 @@ export default function CategoryForm() {
     const router = useRouter();
     const params = useParams();
     const categoryId = params.id as string;
+    const { profile } = useAuth();
 
     const isEditing = categoryId !== 'new';
+
+    function getBackRoute() {
+        if (profile?.name === 'Chef') {
+            return '/dashboard/cozinha';
+        }
+        return '/dashboard/category';
+    }
 
     useEffect(() => {
         if (isEditing) {
@@ -49,7 +58,7 @@ export default function CategoryForm() {
         } catch (error) {
             console.error("Erro ao carregar categoria:", error);
             alert("Erro ao carregar dados da categoria!");
-            router.push("/dashboard/category");
+            router.push(getBackRoute());
         } finally {
             setLoadingData(false);
         }
@@ -92,7 +101,7 @@ export default function CategoryForm() {
                 });
             }
 
-            router.push("/dashboard/category");
+            router.push(getBackRoute());
         } catch (error) {
             console.error("Erro ao salvar categoria:", error);
             alert(`Erro ao ${isEditing ? 'atualizar' : 'criar'} categoria!`);
@@ -102,7 +111,7 @@ export default function CategoryForm() {
     }
 
     function handleCancel() {
-        router.push("/dashboard/category");
+        router.push(getBackRoute());
     }
 
     if (loadingData) {
