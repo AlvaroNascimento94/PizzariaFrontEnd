@@ -3,28 +3,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { api } from "@/services/api";
 import { getCookieCliente } from "@/lib/cookieClient";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  banner:string;
-  active: boolean;
-}
-
-interface Profile {
-  id: string;
-  name: string;
-}
-
-interface AuthContextData {
-  user: User | null;
-  profile: Profile | null;
-  permissionsByModule: Record<string, string[]>;
-  isAdmin: boolean;
-  loading: boolean;
-  can: (systemOption: string, permission: string) => boolean;
-}
+import { AuthContextData, Profile, User } from "@/types/types";
 
 const AuthContext = createContext({} as AuthContextData);
 

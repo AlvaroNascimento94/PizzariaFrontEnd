@@ -35,10 +35,12 @@ export default function EmployeeForm() {
         if (profile?.name === 'Chef') {
             return '/dashboard/cozinha';
         }
-        if (isAdmin) {
+        else if (isAdmin) {
             return '/dashboard/employee';
         }
-        return '/dashboard';
+        else{
+            return '/dashboard';
+        }
     }
 
     useEffect(() => {

@@ -37,10 +37,10 @@
 }
 
 .formHeader {
-  background: linear-gradient(135deg, var(--bordo) 0%, var(--laranja) 100%);
+  background: var(--bordo);
+  //background: linear-gradient(90deg, var(--bordo) 0%, var(--laranja) 100%);
   padding: 20px 40px;
   color: var(--offwhite);
-  border: 3px solid var(--laranja);
   border-bottom: none;
 
   @media (max-width: 768px) {
@@ -265,7 +265,7 @@
 }
 
 .uploadArea {
-  border: 2px dashed var(--bege);
+  border: 2px dashed var(--laranja);
   border-radius: 12px;
   padding: 32px 20px;
   text-align: center;
