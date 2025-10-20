@@ -20,7 +20,7 @@ export function CardEmployer({ employer }: CardEmployerProps) {
   }
 
   const handleEdit = () => {
-    router.push(`/dashboard/employer/${employer.id}`)
+    router.push(`/dashboard/employee/${employer.id}`)
   }
 
   return (
