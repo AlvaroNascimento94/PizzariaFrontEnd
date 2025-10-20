@@ -52,8 +52,7 @@ export default function Dashboard() {
                 <section className={style.containerHeader}>
                     <h1>Últimos Pedidos</h1>
                     <button onClick={handleCreate}>
-                        <Plus />
-                        Novo Pedido
+                        + Novo Pedido
                     </button>
                 </section>
                 <section className={style.containerBody}>

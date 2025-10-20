@@ -35,7 +35,7 @@ export function Header() {
                                 {(profile?.name !== "Chef") && 
                                 (<Link href="/dashboard"> Mesas </Link>)}
                                 {(isAdmin) && (
-                                    <Link href="/dashboard/employer">
+                                    <Link href="/dashboard/employee">
                                         Funcionarios
                                     </Link>
                                 )}

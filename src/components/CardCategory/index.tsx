@@ -14,11 +14,10 @@ export function CardCategory({ category }: CategoryProps) {
         router.replace(`/dashboard/category/${category.id}`)
     }
 
-    // Verifica se é emoji (1-2 caracteres) ou se contém emoji Unicode
     const isEmoji = category.icon && category.icon.length <= 2;
 
     return (
-        <main className={styles.container}>
+        
             <section className={styles.card}>
                 <div className={styles.cardHeader}>
                     <div className={styles.headerIcon} style={{ background: category.color }}>
@@ -34,6 +33,6 @@ export function CardCategory({ category }: CategoryProps) {
                     <button onClick={handleUpdate}> Editar </button>
                 </div>
             </section>
-        </main>
+        
     )
 }

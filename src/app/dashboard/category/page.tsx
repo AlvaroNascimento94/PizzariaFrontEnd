@@ -45,16 +45,15 @@ export default function Category() {
                 <section className={style.containerHeader}>
                     <h1>Categorias</h1>
                     <button onClick={handleCreate}>
-                        <Plus />
-                        Nova Categoria
+                        + Nova Categoria
                     </button>
                 </section>
                 <section className={style.containerBody}>
                     {loading && <p>Carregando pedidos...</p>}
                     {!loading && categories.length > 0 ? (
                         categories.map((category) =>
-                            <CardCategory category={category}/>
-                    )) : (
+                            <CardCategory category={category} />
+                        )) : (
                         !loading && <p>Nenhum pedido encontrado</p>
                     )}
                 </section>

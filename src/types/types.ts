@@ -16,5 +16,17 @@ interface CategoryData {
   icon: string;
 }
 
+interface EmployeeData {
+  id: string
+  name: string
+  email: string
+  banner: string | null
+  active: boolean
+  accessProfile: {
+    id: string
+    name: string
+  }
+}
 
-export type { OrderData, CategoryData };
+
+export type { OrderData, CategoryData, EmployeeData };
