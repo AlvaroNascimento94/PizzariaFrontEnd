@@ -70,7 +70,7 @@ export default function Employer() {
           <h1>Funcionários</h1>
           <button 
             className={styles.addButton}
-            onClick={() => router.push("/dashboard/employer/new")}
+            onClick={() => router.push("/dashboard/employee/new")}
           >
             + Adicionar Funcionário
           </button>
