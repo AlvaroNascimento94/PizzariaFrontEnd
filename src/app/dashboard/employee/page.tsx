@@ -7,6 +7,7 @@ import { api } from "@/services/api"
 import { getCookie } from "cookies-next"
 import { CardEmployer } from "../../../components/CardEmployee"
 import { EmployeeData } from "@/types/types"
+import { useAuth } from "@/hooks/useAuth"
 
 export default function Employer() {
   const router = useRouter()
@@ -16,8 +17,16 @@ export default function Employer() {
   const [selectedProfile, setSelectedProfile] = useState("Todos os cargos")
   const [selectedStatus, setSelectedStatus] = useState("Status")
   const [loading, setLoading] = useState(true)
+  
+  const { can, loading: authLoading } = useAuth()
 
   useEffect(() => {
+    if (!authLoading && !can('Users', 'READ')) {
+      alert('Você não tem permissão para acessar esta página!')
+      router.replace('/dashboard')
+      return
+    }
+
     async function loadEmployers() {
       try {
         const token = getCookie("session")
@@ -35,8 +44,10 @@ export default function Employer() {
       }
     }
 
-    loadEmployers()
-  }, [])
+    if (!authLoading) {
+      loadEmployers()
+    }
+  }, [authLoading, can, router])
 
   useEffect(() => {
     let filtered = employers
@@ -62,6 +73,18 @@ export default function Employer() {
   }, [searchTerm, selectedProfile, selectedStatus, employers])
 
   const uniqueProfiles = ["Todos os cargos", ...new Set(employers.map(emp => emp.accessProfile.name))]
+
+  if (authLoading) {
+    return (
+      <div className={styles.container}>
+        <p>Verificando permissões...</p>
+      </div>
+    )
+  }
+
+  if (!can('Users', 'READ')) {
+    return null
+  }
 
   return (
     <div className={styles.container}>
