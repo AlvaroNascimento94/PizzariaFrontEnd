@@ -14,11 +14,18 @@
   flex-direction: column;
 }
 
+.cardsWrapper {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
 .containerHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  margin-left: 1rem;
   
   h1 {
     font-size: 2rem;
@@ -60,6 +67,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 2rem;
-  align-content: start;
+  align-content: ﬁ;
   justify-items: center;
 }
