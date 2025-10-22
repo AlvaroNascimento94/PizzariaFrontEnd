@@ -1,13 +1,53 @@
 interface OrderData {
   id: string;
+  tableId: string;
+  orderStatusId: string;
+  waiterId: string;
+  draft: boolean;
   price: number;
   createdAt: string;
+  updatedAt: string;
+  userCreateId: string;
+  userUpdateId: string;
   tables: {
+    id: string;
     name: string;
+    available: boolean;
+    createdAt: string;
+    updatedAt: string;
   };
   orderStatus: {
+    id: string;
     name: string;
+    createdAt: string;
+    updatedAt: string;
   };
+  waiter: {
+    name: string;
+    email: string;
+  };
+  orderProducts?: Array<{
+    id: string;
+    orderId: string;
+    productId: string;
+    quantity: number;
+    description?: string;
+    createdAt: string;
+    updatedAt: string;
+    product: {
+      id: string;
+      categoryId: string;
+      name: string;
+      description: string;
+      price: number;
+      banner: string;
+      status: boolean;
+      userCreateId: string;
+      userUpdateId: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+  }>;
 }
 interface CategoryData {
   id: string;
