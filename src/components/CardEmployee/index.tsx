@@ -50,7 +50,7 @@ export function CardEmployer({ employer }: CardEmployerProps) {
         <span className={`${styles.status} ${employer.active ? styles.active : styles.inactive}`}>
           {employer.active ? 'Ativo' : 'Inativo'}
         </span>
-        <span className={styles.id}>ID: #{employer.id.substring(0, 4).toUpperCase()}</span>
+        <span className={styles.id}>{employer.phone}</span>
       </div>
 
       <button className={styles.editButton} onClick={handleEdit}>
