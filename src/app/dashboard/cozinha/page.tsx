@@ -3,52 +3,55 @@ import { useEffect, useState } from "react";
 import { getCookieCliente } from "@/lib/cookieClient";
 import { api } from "@/services/api";
 import style from "./cozinha.module.scss";
-import { OrderData } from "@/types/types";
+import { OrderProductData } from "@/types/types";
 import { CardCozinha } from "@/components/CardCozinha";
 
 export default function CozinhaDashboard() {
-    const [orders, setOrders] = useState<OrderData[]>([]);
+    const [items, setItems] = useState<OrderProductData[]>([]);
     const [loading, setLoading] = useState(true);
 
-    async function loadOrders() {
+    async function loadItems() {
         try {
             const token = getCookieCliente();
-            const response = await api.get("/orders", {
+            const response = await api.get("/order-products", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
 
-            const filteredOrders = response.data
-                    .sort((a: OrderData, b: OrderData) => {
-                    if (a.orderStatus.name === "Em Preparo" && b.orderStatus.name !== "Em Preparo") return -1;
-                    if (a.orderStatus.name !== "Em Preparo" && b.orderStatus.name === "Em Preparo") return 1;
+            const sortedItems = response.data.sort((a: OrderProductData, b: OrderProductData) => {
+                if (a.status.name === "Em Preparo" && b.status.name !== "Em Preparo") return -1;
+                if (a.status.name !== "Em Preparo" && b.status.name === "Em Preparo") return 1;
 
-                    return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-                });
+                // Depois por data
+                return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+            });
 
-            setOrders(filteredOrders);
+            setItems(sortedItems);
         } catch (error) {
-            console.error("Erro ao carregar pedidos:", error);
+            console.error("Erro ao carregar itens:", error);
         } finally {
             setLoading(false);
         }
     }
 
     useEffect(() => {
-        loadOrders();
-        const interval = setInterval(loadOrders, 3000);
+        loadItems();
+        const interval = setInterval(loadItems, 3000);
         return () => clearInterval(interval);
     }, []);
 
-    const novosPedidos = orders.filter(o =>o.orderStatus.name === "Iniciado");
-    const emPreparo = orders.filter(o => o.orderStatus.name === "Em Preparo");
-    const prontos = orders.filter(o => o.orderStatus.name === "Pronto");
+    const novosItens = items.filter(item => 
+        item.status.name === "Aguardando"
+    );
+    const emPreparo = items.filter(item => item.status.name === "Em Preparo");
+    const prontos = items.filter(item => item.status.name === "Pronto");
 
-    const atrasados = orders.filter(order => {
-        if (order.orderStatus.name === "Em Entrega") return false; 
-        const diffInMinutes = Math.floor((new Date().getTime()- new Date(order.createdAt).getTime()) / (1000 * 60));
-        return diffInMinutes > 210; //210 corrigir o utf
+
+    const atrasados = items.filter(item => {
+        if (item.status.name === "Entregue") return false;
+        const diffInMinutes = Math.floor((new Date().getTime() - new Date(item.createdAt).getTime()) / (1000 * 60));
+        return diffInMinutes > 30;
     }).length;
 
     if (loading) {
@@ -66,15 +69,15 @@ export default function CozinhaDashboard() {
             <section className={style.body}>
                 <div className={style.header}>
                     <div className={style.tabs}>
-                        <div className={style.counter}>Todos ({orders.length})</div>
-                        <div className={style.counter}>Novos ({novosPedidos.length})</div>
+                        <div className={style.counter}>Todos ({items.length})</div>
+                        <div className={style.counter}>Novos ({novosItens.length})</div>
                         <div className={style.counter}>Em Preparo ({emPreparo.length})</div>
                         <div className={style.counter}>Prontos ({prontos.length})</div>
                         
                     </div>
                     {atrasados > 0 && (
                         <div className={style.alert}>
-                            ⚠️ {atrasados} pedidos atrasados
+                            ⚠️ {atrasados} itens atrasados
                         </div>
                     )}
                 </div>
@@ -93,44 +96,44 @@ export default function CozinhaDashboard() {
 
                 <div className={style.columnsGrid}>
                     <div className={style.column}>
-                        {novosPedidos.length > 0 ? (
-                            novosPedidos.map((order) => (
+                        {novosItens.length > 0 ? (
+                            novosItens.map((item) => (
                                 <CardCozinha
-                                    key={order.id}
-                                    order={order}
-                                    onUpdate={loadOrders}
+                                    key={item.id}
+                                    item={item}
+                                    onUpdate={loadItems}
                                 />
                             ))
                         ) : (
-                            <p className={style.emptyColumn}>Nenhum pedido novo</p>
+                            <p className={style.emptyColumn}>Nenhum item novo</p>
                         )}
                     </div>
 
                     <div className={style.column}>
                         {emPreparo.length > 0 ? (
-                            emPreparo.map((order) => (
+                            emPreparo.map((item) => (
                                 <CardCozinha
-                                    key={order.id}
-                                    order={order}
-                                    onUpdate={loadOrders}
+                                    key={item.id}
+                                    item={item}
+                                    onUpdate={loadItems}
                                 />
                             ))
                         ) : (
-                            <p className={style.emptyColumn}>Nenhum pedido em preparo</p>
+                            <p className={style.emptyColumn}>Nenhum item em preparo</p>
                         )}
                     </div>
 
                     <div className={style.column}>
                         {prontos.length > 0 ? (
-                            prontos.map((order) => (
+                            prontos.map((item) => (
                                 <CardCozinha
-                                    key={order.id}
-                                    order={order}
-                                    onUpdate={loadOrders}
+                                    key={item.id}
+                                    item={item}
+                                    onUpdate={loadItems}
                                 />
                             ))
                         ) : (
-                            <p className={style.emptyColumn}>Nenhum pedido pronto</p>
+                            <p className={style.emptyColumn}>Nenhum item pronto</p>
                         )}
                     </div>
                 </div>

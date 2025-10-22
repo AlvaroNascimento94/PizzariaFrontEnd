@@ -1,40 +1,39 @@
 'use client'
 
 import { useState } from 'react'
-import { OrderData } from '@/types/types'
+import { OrderProductData } from '@/types/types'
 import styles from './cardCozinha.module.scss'
 import { api } from '@/services/api'
 import { getCookieCliente } from '@/lib/cookieClient'
 import { Play } from 'lucide-react'
 
 interface CardCozinhaProps {
-    order: OrderData
+    item: OrderProductData // ✅ Agora recebe OrderProductData
     onUpdate: () => void
 }
 
-export function CardCozinha({ order, onUpdate }: CardCozinhaProps) {
+export function CardCozinha({ item, onUpdate }: CardCozinhaProps) {
     const [loading, setLoading] = useState(false)
 
     const getNextStatus = (currentStatus: string) => {
         switch (currentStatus) {
-            case 'Iniciado':
+            case 'Aguardando':
                 return { name: 'Em Preparo', buttonText: 'Iniciar Preparo', color: 'orange' }
-
             case 'Em Preparo':
-                return { name: 'Pronto', buttonText: 'Pronto', color: 'oliva' }
+                return { name: 'Pronto', buttonText: 'Marcar Pronto', color: 'oliva' }
             case 'Pronto':
-                return { name: 'Em Entrega', buttonText: 'Entregar', color: 'bordo' }
+                return { name: 'Entregue', buttonText: 'Entregar', color: 'bordo' }
             default:
                 return null
         }
     }
 
-    const nextStatus = getNextStatus(order.orderStatus.name)
+    const nextStatus = getNextStatus(item.status.name)
 
     const getTimeAgo = (date: string) => {
         const now = new Date()
-        const orderDate = new Date(date)
-        const diffInMinutes = Math.floor((now.getTime() - orderDate.getTime()) / (1000 * 60))
+        const itemDate = new Date(date)
+        const diffInMinutes = Math.floor((now.getTime() - itemDate.getTime()) / (1000 * 60))
 
         if (diffInMinutes < 60) {
             return `${diffInMinutes} min atrás`
@@ -51,9 +50,9 @@ export function CardCozinha({ order, onUpdate }: CardCozinhaProps) {
         try {
             const token = getCookieCliente()
 
-            await api.put('/order/status',
+            await api.put('/order-product/status',
                 {
-                    orderId: order.id,
+                    orderProductId: item.id,
                     statusName: nextStatus.name
                 },
                 {
@@ -66,7 +65,7 @@ export function CardCozinha({ order, onUpdate }: CardCozinhaProps) {
             onUpdate()
         } catch (error: any) {
             console.error('Erro ao atualizar status:', error)
-            const errorMessage = error.response?.data?.error || 'Erro ao atualizar status do pedido'
+            const errorMessage = error.response?.data?.error || 'Erro ao atualizar status do item'
             alert(errorMessage)
         } finally {
             setLoading(false)
@@ -76,26 +75,20 @@ export function CardCozinha({ order, onUpdate }: CardCozinhaProps) {
     return (
         <div className={styles.card}>
             <div className={styles.header}>
-                <h2 className={styles.mesa}>{order.tables.name}</h2>
-                <span className={styles.waiter}>Garçom: {order.waiter.name}</span>
+                <h2 className={styles.mesa}>{item.order.tables.name}</h2>
+                <span className={styles.waiter}>Garçom: {item.order.waiter.name}</span>
             </div>
 
-            <p className={styles.time}>Pedido: {getTimeAgo(order.createdAt)}</p>
+            <p className={styles.time}>Pedido: {getTimeAgo(item.createdAt)}</p>
 
             <div className={styles.items}>
-                {order.orderProducts && order.orderProducts.length > 0 ? (
-                    order.orderProducts.map((item) => (
-                        <div key={item.id} className={styles.item}>
-                            <span className={styles.amount}>{item.quantity}x</span>
-                            <span className={styles.productName}>{item.product.name}</span>
-                            {item.description && (
-                                <span className={styles.description}>{item.description}</span>
-                            )} 
-                        </div>
-                    ))
-                ) : (
-                    <p className={styles.noItems}>Nenhum item no pedido</p>
-                )}
+                <div className={styles.item}>
+                    <span className={styles.amount}>{item.quantity}x</span>
+                    <span className={styles.productName}>{item.product.name}</span>
+                    {item.description && (
+                        <span className={styles.description}>{item.description}</span>
+                    )} 
+                </div>
             </div>
 
             {nextStatus && (
