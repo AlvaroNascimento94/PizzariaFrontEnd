@@ -128,67 +128,85 @@ export default function CategoryForm() {
 
     return (
         <main className={style.container}>
-            <section className={style.body}>
-                <section className={style.containerHeader}>
-                    <h1>{isEditing ? 'Editar Categoria' : 'Nova Categoria'}</h1>
-                </section>
-                <section className={style.containerBody}>
-                    <form onSubmit={handleSubmit}>
-                        <div className={style.name}>
-                            <label>Nome da Categoria *</label>
-                            <input
-                                type="text"
-                                placeholder="Ex: pizzas, drinks"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                            />
+            <div className={style.body}>
+                <section className={style.formCard}>
+                    <div className={style.formHeader}>
+                        <h1>{isEditing ? 'Editar Categoria' : 'Nova Categoria'}</h1>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className={style.form}>
+                        <div className={style.formGrid}>
+                            <div className={style.leftColumn}>
+                                <div className={style.inputGroup}>
+                                    <label>
+                                        <span className={style.icon}>🏷️</span> Nome da Categoria *
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Ex: pizzas, drinks"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        required
+                                    />
+                                </div>
+
+                                <div className={style.inputGroup}>
+                                    <label>
+                                        <span className={style.icon}>📝</span> Descrição (Opcional)
+                                    </label>
+                                    <textarea
+                                        placeholder="Ex: Deliciosas pizzas artesanais feitas no forno a lenha"
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
+                                        rows={4}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className={style.rightColumn}>
+                                <div className={style.inputGroup}>
+                                    <label>
+                                        <span className={style.icon}>🎨</span> Cor da Categoria *
+                                    </label>
+                                    <div className={style.colorPicker}>
+                                        <input
+                                            type="color"
+                                            value={color}
+                                            onChange={(e) => setColor(e.target.value)}
+                                        />
+                                        <span className={style.colorCode}>{color}</span>
+                                    </div>
+                                </div>
+
+                                <div className={style.iconGroup}>
+                                    <IconPicker
+                                        selectedIcon={selectedIcon}
+                                        onSelect={setSelectedIcon}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className={style.description}>
-                            <label>Descrição (Opcional)</label>
-                            <textarea
-                                placeholder="Ex: Deliciosas pizzas artesanais feitas no forno a lenha"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                rows={4}
-                            />
-                        </div>
-                        <div className={style.color}>
-                            <label>Cor da Categoria *</label>
-                            <input
-                                type="color"
-                                value={color}
-                                onChange={(e) => setColor(e.target.value)}
-                            />
-                            <span style={{ marginLeft: '10px', color: 'gray' }}>
-                                {color}
-                            </span>
-                        </div>
-                        <div className={style.icon}>
-                            <IconPicker
-                                selectedIcon={selectedIcon}
-                                onSelect={setSelectedIcon}
-                            />
-                        </div>
-                        <div className={style.buttons}>
+
+                        <div className={style.formActions}>
                             <button
                                 type="submit"
+                                className={style.submitButton}
                                 disabled={loading}
-                                id={style.confirm}
                             >
+                                <span className={style.icon}>💾</span>
                                 {loading ? 'Salvando...' : isEditing ? 'Atualizar Categoria' : 'Salvar Categoria'}
                             </button>
                             <button
                                 type="button"
+                                className={style.cancelButton}
                                 onClick={handleCancel}
-                                id={style.cancel}
                             >
-                                Cancelar
+                                ✖ Cancelar
                             </button>
                         </div>
                     </form>
                 </section>
-            </section>
+            </div>
         </main>
     )
 }
