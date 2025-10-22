@@ -1,13 +1,31 @@
 .container {
   background-color: var(--offwhite);
-  padding: 30px 20px;
-  height: 200px;
+  padding: 20px 16px;
+  min-height: 200px;
+  height: auto;
   width: 170px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// ✅ Animação de pulso para itens prontos
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(146, 147, 80, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(146, 147, 80, 0.7);
+  }
 }
 .card {
   display: flex;
@@ -22,34 +40,80 @@
   border-radius: 8px;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 
   P {
     font-size: 1.5rem;
     font-weight: 600;
   }
 }
+
+// ✅ Badge de alerta de itens prontos (fora do header)
+.badge {
+  background-color: var(--oliva);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
 .cardBody {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   align-items: flex-start;
-  .status{
+  
+  .status {
     font-size: 1rem;
     font-weight: 500;
-    margin-top: 10px;
   }
-  .price{
-    font-size: 1.1rem;
-    margin-top: 4px;
-    font-weight: 600;
-  }
-  .time{
+  
+  .time {
     display: flex;
     flex-direction: column;
-    font-size: 0.9rem;
-    margin-top: 4px;
+    font-size: 0.85rem;
     color: gray;
     align-items: flex-start;
+    margin-top: 4px;
+    
+    p {
+      margin: 0;
+      line-height: 1.3;
+    }
   }
+}
+
+// ✅ Contador de itens por status
+.itemsCounter {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.counterBadge {
+  background-color: var(--bege);
+  color: var(--black);
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }

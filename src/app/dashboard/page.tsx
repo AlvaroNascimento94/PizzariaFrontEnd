@@ -23,18 +23,15 @@ export default function Dashboard() {
             try {
                 const token = getCookieCliente();
 
-                const response = await api.get("/orders", {
+                // ✅ Backend já retorna ordenado: prioridade DESC + nome ASC
+                const response = await api.get("/orders-by-table", {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
 
-                const sortedOrders = response.data.sort((a: any, b: any) => {
-                    return a.tables.name.localeCompare(b.tables.name);
-                });
-
-                setOrders(sortedOrders);
-                console.log("Pedidos carregados e ordenados:", sortedOrders);
+                setOrders(response.data);
+                console.log("Mesas carregadas:", response.data);
             } catch (error) {
                 console.error("Erro ao carregar pedidos:", error);
             } finally {

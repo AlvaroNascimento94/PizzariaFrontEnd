@@ -3,7 +3,6 @@ interface OrderData {
   tableId: string;
   orderStatusId: string;
   waiterId: string;
-  draft: boolean;
   price: number;
   createdAt: string;
   updatedAt: string;
@@ -32,8 +31,13 @@ interface OrderData {
     productId: string;
     quantity: number;
     description?: string;
+    statusId: string; 
     createdAt: string;
     updatedAt: string;
+    status: {
+      id: string;
+      name: string;
+    };
     product: {
       id: string;
       categoryId: string;
@@ -49,6 +53,58 @@ interface OrderData {
     };
   }>;
 }
+
+interface OrderProductData {
+  id: string;
+  orderId: string;
+  productId: string;
+  quantity: number;
+  description?: string;
+  statusId: string;
+  createdAt: string;
+  updatedAt: string;
+  status: {
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  product: {
+    id: string;
+    categoryId: string;
+    name: string;
+    description: string;
+    price: number;
+    banner: string;
+    status: boolean;
+    userCreateId: string;
+    userUpdateId: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  order: {
+    id: string;
+    tableId: string;
+    orderStatusId: string;
+    waiterId: string;
+    price: number;
+    createdAt: string;
+    updatedAt: string;
+    tables: {
+      id: string;
+      name: string;
+      available: boolean;
+      createdAt: string;
+      updatedAt: string;
+    };
+    waiter: {
+      id: string;
+      name: string;
+      email: string;
+    };
+  };
+}
+
 interface CategoryData {
   id: string;
   name: string;
@@ -91,4 +147,4 @@ interface AuthContextData {
   can: (systemOption: string, permission: string) => boolean;
 }
 
-export type { OrderData, CategoryData, EmployeeData, AccessProfile, User, Profile, AuthContextData };
+export type { OrderData, OrderProductData, CategoryData, EmployeeData, AccessProfile, User, Profile, AuthContextData };
