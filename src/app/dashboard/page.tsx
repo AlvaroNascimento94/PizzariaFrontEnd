@@ -23,7 +23,6 @@ export default function Dashboard() {
             try {
                 const token = getCookieCliente();
 
-                // ✅ Backend já retorna ordenado: prioridade DESC + nome ASC
                 const response = await api.get("/orders-by-table", {
                     headers: {
                         Authorization: `Bearer ${token}`

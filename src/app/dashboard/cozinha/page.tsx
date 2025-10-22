@@ -23,7 +23,6 @@ export default function CozinhaDashboard() {
                 if (a.status.name === "Em Preparo" && b.status.name !== "Em Preparo") return -1;
                 if (a.status.name !== "Em Preparo" && b.status.name === "Em Preparo") return 1;
 
-                // Depois por data
                 return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
             });
 

@@ -18,7 +18,7 @@
   }
 }
 
-// ✅ Animação de pulso para itens prontos
+
 @keyframes pulse {
   0%, 100% {
     box-shadow: 0 0 20px rgba(146, 147, 80, 0.4);
@@ -48,7 +48,6 @@
   }
 }
 
-// ✅ Badge de alerta de itens prontos (fora do header)
 .badge {
   background-color: var(--oliva);
   color: white;
@@ -98,7 +97,6 @@
   }
 }
 
-// ✅ Contador de itens por status
 .itemsCounter {
   display: flex;
   gap: 6px;

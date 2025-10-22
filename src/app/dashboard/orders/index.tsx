@@ -64,7 +64,6 @@ export function Orders({ order }: OrderProps) {
     const itemsProntos = order.itemsByStatus.pronto;
     const hasItemsProntos = itemsProntos > 0;
 
-    // ✅ Cores por prioridade de status
     const statusColor: Record<string, string> = {
         "Aguardando": "var(--bege)",
         "Em Preparo": "var(--dourado2)",
@@ -75,7 +74,6 @@ export function Orders({ order }: OrderProps) {
 
     const borderColor = statusColor[statusName] || "var(--bege)";
     
-    // ✅ Destaque especial para itens prontos (prioridade alta)
     const cardStyle = hasItemsProntos ? {
         border: `4px solid var(--oliva)`,
         boxShadow: '0 0 20px rgba(146, 147, 80, 0.4)',
@@ -97,7 +95,6 @@ export function Orders({ order }: OrderProps) {
                     }} />
                 </div>
                 
-                {/* ✅ Badge de itens prontos */}
                 {hasItemsProntos && (
                     <div className={styles.badge}>
                         🔔 {itemsProntos} {itemsProntos === 1 ? 'pronto' : 'prontos'}
@@ -109,7 +106,7 @@ export function Orders({ order }: OrderProps) {
                         {statusName}
                     </div>
                     
-                    {/* ✅ Contador de itens por status */}
+
                     <div className={styles.itemsCounter}>
                         {order.itemsByStatus.aguardando > 0 && (
                             <span className={styles.counterBadge}>⏳ {order.itemsByStatus.aguardando}</span>
