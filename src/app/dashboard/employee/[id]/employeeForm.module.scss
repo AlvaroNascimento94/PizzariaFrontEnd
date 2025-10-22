@@ -104,7 +104,7 @@
 .rightColumn {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 
 .inputGroup {
@@ -246,6 +246,7 @@
 }
 
 .uploadGroup {
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -267,12 +268,17 @@
 .uploadArea {
   border: 2px dashed var(--laranja);
   border-radius: 12px;
-  padding: 32px 20px;
+  padding: 20px 20px;
   text-align: center;
   background-color: #fafafa;
   transition: all 0.3s;
   position: relative;
   cursor: pointer;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     border-color: var(--laranja);
@@ -280,19 +286,19 @@
   }
 
   .uploadIcon {
-    font-size: 3rem;
-    margin-bottom: 12px;
+    font-size: 2.5rem;
+    margin-bottom: 8px;
   }
 
   p {
-    margin: 0 0 8px 0;
-    font-size: 0.95rem;
+    margin: 0 0 4px 0;
+    font-size: 0.9rem;
     color: #666;
     font-weight: 500;
   }
 
   span {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #999;
   }
 
@@ -313,7 +319,6 @@
   width: 100%;
   justify-content: space-between;
   padding-top: 15px;
-  border-top: 2px solid var(--bege);
 
   @media (max-width: 480px) {
     flex-direction: column;

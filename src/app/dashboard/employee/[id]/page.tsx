@@ -219,6 +219,20 @@ export default function EmployeeForm() {
                                     />
                                 </div>
 
+                                {(!isEditing || isEditingSelf) && (
+                                    <div className={styles.inputGroup}>
+                                        <label>
+                                            <span className={styles.icon}>🔒</span> {isEditing ? 'Nova Senha (opcional)' : 'Senha *'}
+                                        </label>
+                                        <input
+                                            type="password"
+                                            placeholder={isEditing ? 'Deixe em branco para não alterar' : 'Digite a senha'}
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            required={!isEditing}
+                                        />
+                                    </div>
+                                )}
 
                                 {isAdmin && isEditing && !isEditingSelf && (
                                     <div className={styles.statusContainer}>
@@ -234,22 +248,6 @@ export default function EmployeeForm() {
                                             />
                                             <span className={styles.slider}></span>
                                         </label>
-                                    </div>
-                                )}
-
-
-                                {(!isEditing || isEditingSelf) && (
-                                    <div className={styles.inputGroup}>
-                                        <label>
-                                            <span className={styles.icon}>🔒</span> {isEditing ? 'Nova Senha (opcional)' : 'Senha *'}
-                                        </label>
-                                        <input
-                                            type="password"
-                                            placeholder={isEditing ? 'Deixe em branco para não alterar' : 'Digite a senha'}
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            required={!isEditing}
-                                        />
                                     </div>
                                 )}
                             </div>
@@ -286,7 +284,6 @@ export default function EmployeeForm() {
                                         </select>
                                     </div>
                                 )}
-
                             </div>
 
                         </div>
