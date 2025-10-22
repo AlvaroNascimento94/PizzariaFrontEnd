@@ -50,7 +50,6 @@ export default function Category() {
         router.push("/dashboard/category/new");
     }
 
-    // Mostra loading enquanto verifica permissões
     if (authLoading) {
         return (
             <main className={style.container}>
@@ -58,8 +57,7 @@ export default function Category() {
             </main>
         );
     }
-
-    // Se não tem permissão, não renderiza nada (já redirecionou)
+    
     if (!can('Categories', 'READ')) {
         return null;
     }
