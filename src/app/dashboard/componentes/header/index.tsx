@@ -12,7 +12,7 @@ import { useAuth } from "@/hooks/useAuth"
 export function Header() {
     const router = useRouter()
     const { isAdmin, loading, user, profile, can } = useAuth()
-    
+
     async function handleProfile() {
         router.replace(`/dashboard/employee/${user?.id}`)
     }
@@ -51,7 +51,13 @@ export function Header() {
                                     <Link href="/dashboard/product">
                                         Produto
                                     </Link>
-                                )}
+                                )}{
+                                    (isAdmin) &&(
+                                        <Link href="/dashboard/cozinha">
+                                            Cozinha
+                                        </Link>
+                                    )
+                                }
                             </>
                         )}
                     </div>
