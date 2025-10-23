@@ -1,0 +1,293 @@
+.container {
+  height: calc(100vh - 7rem);
+  background: #f8f6ef;
+  padding: 2rem 0;
+}
+
+.formCard {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: #a32d2d;
+  border-radius: 14px 14px 0 0;
+  padding: 1.2rem 1.5rem;
+  margin: -2.5rem -2rem 2rem -2rem;
+  color: #fff;
+}
+.icon {
+  font-size: 2.2rem;
+  background: #fff2;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.formHeader h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.formHeader p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.formGrid {
+  display: flex;
+  gap: 2.5rem;
+}
+.leftColumn {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.rightColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.inputGroup label {
+  font-weight: 500;
+  margin-bottom: 0.1rem;
+}
+.inputGroup input,
+.inputGroup textarea,
+.inputGroup select {
+  border: 1px solid #e0e0e0;
+  border-radius: 7px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  background: #faf9f6;
+  outline: none;
+  transition: border 0.2s;
+}
+.inputGroup input:focus,
+.inputGroup textarea:focus,
+.inputGroup select:focus {
+  border: 1.5px solid #a32d2d;
+}
+.inputHint {
+  font-size: 0.85rem;
+  color: #a32d2d;
+  opacity: 0.7;
+  margin-top: 0.1rem;
+}
+
+.imageLabel {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+.imageUploadArea {
+  border: 1.5px dashed #c95d1c;
+  border-radius: 10px;
+  background: #fff7f0;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.imageUploadArea input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+}
+.uploadPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #a32d2d;
+  opacity: 0.7;
+}
+.uploadIcon {
+  font-size: 2.2rem;
+}
+.imagePreview {
+  max-width: 100%;
+  max-height: 160px;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+}
+
+.switchGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e0e0e0;
+  border-radius: 24px;
+  transition: 0.4s;
+}
+.switch input:checked + .slider {
+  background-color: #a32d2d;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+.switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+.saveButton {
+  width: 25%;
+  padding: 14px;
+  background-color: var(--laranja);
+  color: var(--offwhite);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 4px;
+  align-self: center;
+
+  @media (max-width: 768px) {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background-color: var(--laranja2);
+    color: var(--offwhite);
+    box-shadow: inset 0 0 5px var(--offwhite);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .icon {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+}
+.saveButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.cancelButton {
+  width: 25%;
+  padding: 14px;
+  background-color: var(--bordo);
+  color: var(--offwhite);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 4px;
+  align-self: center;
+
+  @media (max-width: 768px) {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .icon {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    background-color: var(--bordo);
+    color: var(--offwhite);
+    box-shadow: inset 0 0 10px var(--offwhite);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 900px) {
+  .formCard {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+  .formGrid {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .rightColumn {
+    align-items: stretch;
+  }
+}
