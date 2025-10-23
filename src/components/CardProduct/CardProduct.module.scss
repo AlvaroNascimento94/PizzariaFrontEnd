@@ -1,7 +1,7 @@
 .card {
   background: var(--offwhite);
   border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,9 +9,10 @@
   transition: box-shadow 0.2s, border 0.2s;
   min-width: 0;
   border: 1.5px solid #ffe1a6;
+  margin: 0.75rem;
   &:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.13);
-    border: 1.5px solid var(--laranja);
+    box-shadow: 0.5rem 0.5rem  rgba(0, 0, 0, 0.12);
+    scale: 1.02;
   }
 }
 
@@ -61,14 +62,44 @@
     color: var(--black);
     word-break: break-word;
   }
+  p {
+    margin: 0.5rem 0;
+    padding: 3rem 0;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #666;
+    word-break: break-word;
+    justify-content: flex-start;
+    text-align: left;
+  }
 }
-
 .desc {
   font-size: 0.98rem;
   color: #444;
   margin-bottom: 10px;
   min-height: 36px;
+  max-height: 80px;
   word-break: break-word;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--bege);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--laranja);
+    border-radius: 4px;
+
+    &:hover {
+      background: var(--bordo);
+    }
+  }
 }
 
 .bottom {
@@ -83,9 +114,11 @@
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--bordo);
+  text-align: left;
 }
 
-.editButton, .addButton {
+.editButton,
+.addButton {
   background: var(--laranja);
   color: var(--offwhite);
   border: none;
