@@ -53,7 +53,20 @@ interface OrderData {
     };
   }>;
 }
-
+interface ProductData {
+    id: string;
+    categoryId: string;
+    name: string;
+    description: string;
+    price: number;
+    banner: string;
+    status: boolean;
+    userCreateId: string;
+    userUpdateId: string;
+    createdAt: string;
+    updatedAt: string;
+  
+}
 interface OrderProductData {
   id: string;
   orderId: string;
@@ -147,4 +160,4 @@ interface AuthContextData {
   can: (systemOption: string, permission: string) => boolean;
 }
 
-export type { OrderData, OrderProductData, CategoryData, EmployeeData, AccessProfile, User, Profile, AuthContextData };
+export type { OrderData, OrderProductData, CategoryData, EmployeeData, AccessProfile, User, Profile, AuthContextData, ProductData};

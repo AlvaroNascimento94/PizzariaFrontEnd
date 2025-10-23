@@ -41,6 +41,7 @@
   padding: 20px 40px;
   color: var(--offwhite);
   border-bottom: none;
+ 
 
   @media (max-width: 768px) {
     padding: 24px 30px;
@@ -255,7 +256,7 @@
 }
 
 .submitButton {
-  width: 45%;
+  width: 25%;
   padding: 14px;
   background-color: var(--laranja);
   color: var(--offwhite);
