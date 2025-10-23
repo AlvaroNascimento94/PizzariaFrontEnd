@@ -188,6 +188,14 @@ export default function CategoryForm() {
                         </div>
 
                         <div className={style.formActions}>
+                            
+                            <button
+                                type="button"
+                                className={style.cancelButton}
+                                onClick={handleCancel}
+                            >
+                                ✖ Cancelar
+                            </button>
                             <button
                                 type="submit"
                                 className={style.submitButton}
@@ -195,13 +203,6 @@ export default function CategoryForm() {
                             >
                                 <span className={style.icon}>💾</span>
                                 {loading ? 'Salvando...' : isEditing ? 'Atualizar Categoria' : 'Salvar Categoria'}
-                            </button>
-                            <button
-                                type="button"
-                                className={style.cancelButton}
-                                onClick={handleCancel}
-                            >
-                                ✖ Cancelar
                             </button>
                         </div>
                     </form>

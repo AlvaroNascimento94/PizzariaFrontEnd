@@ -86,7 +86,7 @@ export default function ProductForm() {
             }
             router.push("/dashboard/product");
         } catch (err) {
-           alert(`Erro ao ${isEditing ? 'atualizar' : 'criar'} produto!`);
+            alert(`Erro ao ${isEditing ? 'atualizar' : 'criar'} produto!`);
         } finally {
             setLoading(false);
         }
@@ -96,7 +96,7 @@ export default function ProductForm() {
         <main className={style.container}>
             <div className={style.formCard}>
                 <div className={style.formHeader}>
-                    <span className={style.icon}>+</span>
+                    {isEditing ? '' : <span className={style.icon}>+</span>}
                     <div>
                         <h1>{isEditing ? 'Editar Produto' : 'Novo Produto'}</h1>
                     </div>
@@ -175,10 +175,10 @@ export default function ProductForm() {
                         </div>
                     </div>
                     <div className={style.formActions}>
-                        <button type="submit" className={style.saveButton} disabled={loading}>
-                           {isEditing? '✓ Atualizar Produto' : '✓ Salvar Produto' }
-                        </button>
                         <button type="button" className={style.cancelButton} onClick={() => router.push("/dashboard/product")}>X Cancelar</button>
+                        <button type="submit" className={style.saveButton} disabled={loading}>
+                            {isEditing ? '✓ Atualizar Produto' : '✓ Salvar Produto'}
+                        </button>
                     </div>
                 </form>
             </div>

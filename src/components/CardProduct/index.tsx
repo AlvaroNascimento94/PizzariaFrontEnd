@@ -26,7 +26,7 @@ export function CardProduct({ product }: CardProductProps) {
       </div>
       <div className={styles.info}>
         <h2>{product.name}</h2>
-        <p className={styles.desc}>{product.description}</p>
+        <div className={styles.desc}>{product.description}</div>
         <div className={styles.bottom}>
           <span className={styles.price}>R$ {Number(product.price).toFixed(2)}</span>
           <button className={styles.editButton} onClick={handleEdit}>

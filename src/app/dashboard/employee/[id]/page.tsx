@@ -290,6 +290,13 @@ export default function EmployeeForm() {
 
                         <div className={styles.formActions}>
                             <button
+                                type="button"
+                                className={styles.cancelButton}
+                                onClick={() => router.push(getBackRoute())}
+                            >
+                                ✖ Cancelar
+                            </button>
+                            <button
                                 type="submit"
                                 className={styles.submitButton}
                                 disabled={loading}
@@ -297,13 +304,7 @@ export default function EmployeeForm() {
                                 <span className={styles.icon}>👤</span>
                                 {loading ? 'Salvando...' : (isEditing ? 'Atualizar Funcionário' : 'Cadastrar Funcionário')}
                             </button>
-                            <button
-                                type="button"
-                                className={styles.cancelButton}
-                                onClick={() => router.push(getBackRoute())}
-                            >
-                                ✖ Cancelar
-                            </button>
+                            
                         </div>
                     </form>
                 </section>

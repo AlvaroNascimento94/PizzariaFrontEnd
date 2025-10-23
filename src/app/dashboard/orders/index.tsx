@@ -65,14 +65,14 @@ export function Orders({ order }: OrderProps) {
     const hasItemsProntos = itemsProntos > 0;
 
     const statusColor: Record<string, string> = {
-        "Aguardando": "var(--bege)",
+        "Aguardando": "var(--laranja)",
         "Em Preparo": "var(--dourado2)",
         "Pronto": "var(--oliva)",
         "Entregue": "var(--bordo)",
         "Finalizado": "var(--black)",
     }
 
-    const borderColor = statusColor[statusName] || "var(--bege)";
+    const borderColor = statusColor[statusName] || "var(--laranja)";
     
     const cardStyle = hasItemsProntos ? {
         border: `4px solid var(--oliva)`,
@@ -102,11 +102,6 @@ export function Orders({ order }: OrderProps) {
                 )}
                 
                 <div className={styles.cardBody}>
-                    <div className={styles.status}>
-                        {statusName}
-                    </div>
-                    
-
                     <div className={styles.itemsCounter}>
                         {order.itemsByStatus.aguardando > 0 && (
                             <span className={styles.counterBadge}>⏳ {order.itemsByStatus.aguardando}</span>

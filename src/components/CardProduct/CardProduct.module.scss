@@ -11,7 +11,7 @@
   border: 1.5px solid #ffe1a6;
   margin: 0.75rem;
   &:hover {
-    box-shadow: 0.5rem 0.5rem  rgba(0, 0, 0, 0.12);
+    box-shadow: 0.5rem 0.5rem rgba(0, 0, 0, 0.12);
     scale: 1.02;
   }
 }
@@ -52,9 +52,11 @@
 
 .info {
   width: 100%;
+  height: 160px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   h2 {
     font-size: 1.15rem;
     font-weight: 700;
@@ -62,26 +64,19 @@
     color: var(--black);
     word-break: break-word;
   }
-  p {
-    margin: 0.5rem 0;
-    padding: 3rem 0;
+  .desc{
+    width: 100%;
+    overflow-x: hidden;
     display: flex;
-    align-items: center;
+    height: 85px;
+    align-items: start;
     font-size: 0.95rem;
     color: #666;
-    word-break: break-word;
     justify-content: flex-start;
     text-align: left;
-  }
-}
-.desc {
-  font-size: 0.98rem;
-  color: #444;
-  margin-bottom: 10px;
-  min-height: 36px;
-  max-height: 80px;
-  word-break: break-word;
-  overflow-y: auto;
+    overflow-y: auto;
+    word-break: break-word;
+    padding: 1rem;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -100,7 +95,9 @@
       background: var(--bordo);
     }
   }
+  }
 }
+
 
 .bottom {
   width: 100%;
@@ -117,8 +114,7 @@
   text-align: left;
 }
 
-.editButton,
-.addButton {
+.editButton {
   background: var(--laranja);
   color: var(--offwhite);
   border: none;
@@ -130,7 +126,12 @@
   transition: all 0.2s;
   margin-left: 8px;
   &:hover {
-    background: var(--bordo);
-    color: var(--offwhite);
+      background-color: var(--laranja2);
+      color: var(--offwhite);
+      box-shadow: inset 0 0 5px var(--offwhite);
+    }
+
+  &:active {
+    transform: scale(1.05);
   }
 }
