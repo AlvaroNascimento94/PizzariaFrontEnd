@@ -1,6 +1,6 @@
 'use client'
 
-import { Orders } from "./orders";
+import { Order } from "./order";
 import style from "./dashboard.module.scss"
 import { Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -15,7 +15,7 @@ export default function Dashboard() {
     const router = useRouter()
 
     async function handleCreate() {
-        router.replace("/dashboard/order")
+        router.replace("/dashboard/order/new")
     }
 
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function Dashboard() {
 
                     {!loading && orders.length > 0 ? (
                         orders.map((order) =>
-                            <Orders order={order} key={order} />)
+                            <Order order={order} key={order} />)
                     ) : (
                         !loading && <p>Nenhum pedido encontrado</p>
                     )}

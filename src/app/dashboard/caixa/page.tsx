@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getCookieCliente } from "@/lib/cookieClient";
 import { api } from "@/services/api";
 import styles from "../dashboard.module.scss";
-import { Orders } from "../orders";
+import { Orders } from "../order";
 import { OrderData } from "@/types/types";
 
 export default function CaixaDashboard() {
