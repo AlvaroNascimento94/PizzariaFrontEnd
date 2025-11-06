@@ -34,17 +34,14 @@ export default function OrderTablePage() {
     }
     if (!authLoading) {
       loadData();
-      
-      // Atualizar dados a cada 30 segundos
+
       const interval = setInterval(() => {
         loadData();
-      }, 30000); // 30 segundos
-      
+      }, 30000); 
       return () => clearInterval(interval);
     }
   }, [authLoading, can, router, orderId]);
 
-  // Set current time only on client side to avoid hydration mismatch
   useEffect(() => {
     setCurrentTime(new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
   }, []);
