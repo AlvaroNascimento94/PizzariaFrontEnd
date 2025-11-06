@@ -4,7 +4,6 @@ import style from "./category.module.scss"
 import { useEffect, useState } from "react";
 import { getCookieCliente } from "@/lib/cookieClient";
 import { api } from "@/services/api";
-import { Plus } from "lucide-react";
 import { CardCategory } from "../../../components/CardCategory";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -16,7 +15,6 @@ export default function Category() {
     const { can, loading: authLoading } = useAuth();
 
     useEffect(() => {
-        // Verifica se o usuário tem permissão para ler categorias
         if (!authLoading && !can('Categories', 'READ')) {
             alert('Você não tem permissão para acessar esta página!');
             router.replace('/dashboard');
