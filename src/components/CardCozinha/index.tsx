@@ -1,16 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { OrderProductData } from '@/types/types'
+import { CardCozinhaProps } from '@/types/types'
 import styles from './cardCozinha.module.scss'
 import { api } from '@/services/api'
 import { getCookieCliente } from '@/lib/cookieClient'
 import { Play } from 'lucide-react'
-
-interface CardCozinhaProps {
-    item: OrderProductData // ✅ Agora recebe OrderProductData
-    onUpdate: () => void
-}
 
 export function CardCozinha({ item, onUpdate }: CardCozinhaProps) {
     const [loading, setLoading] = useState(false)
