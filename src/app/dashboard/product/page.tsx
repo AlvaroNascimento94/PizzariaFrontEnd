@@ -48,7 +48,6 @@ export default function ProductPage() {
     router.push(`/dashboard/product/${productId}`);
   }
 
-  // Filtro
   const filtered = products.filter((p: any) => {
     const matchName = p.name.toLowerCase().includes(search.toLowerCase());
     const matchCategory = !category || p.categoryId === category;

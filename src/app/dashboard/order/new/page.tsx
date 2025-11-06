@@ -117,14 +117,12 @@ export default function NewOrderPage() {
     try {
       const token = getCookieCliente();
       
-      // Criar pedido
       const orderRes = await api.post("/order", { tableId: selectedTable }, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
       const orderId = orderRes.data.id;
 
-      // Adicionar itens
       for (const item of orderItems) {
         await api.post("/order/item", {
           orderId,
