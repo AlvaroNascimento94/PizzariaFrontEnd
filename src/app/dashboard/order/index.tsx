@@ -3,29 +3,9 @@ import styles from "./styles.module.scss"
 import { useEffect, useState } from "react";
 import { Circle } from "lucide-react";
 import { useRouter } from "next/navigation"
+import { OrderProps } from "@/types/types";
 
-interface TableGroupData {
-    tableId: string;
-    tableName: string;
-    totalOrders: number;
-    totalPrice: number;
-    createdAt: string;
-    status: string;
-    statusPriority: number;
-    itemsByStatus: {
-        aguardando: number;
-        emPreparo: number;
-        pronto: number;
-        entregue: number;
-        finalizado: number;
-        cancelado: number;
-    };
-    orders: any[];
-}
 
-interface OrderProps {
-    order: TableGroupData;
-}
 
 export function Order({ order }: OrderProps) {
     const [timeActive, setTimeActive] = useState("");
