@@ -153,7 +153,7 @@ export default function EmployeeForm() {
                     }
                 });
             } else {
-                await api.post("/users", data, {
+                await api.post("/user", data, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
