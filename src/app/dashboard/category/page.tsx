@@ -38,7 +38,7 @@ export default function Category() {
                 setLoading(false);
             }
         }
-        
+
         if (!authLoading) {
             loadCategory();
         }
@@ -55,7 +55,7 @@ export default function Category() {
             </main>
         );
     }
-    
+
     if (!can('Categories', 'READ')) {
         return null;
     }
@@ -71,15 +71,15 @@ export default function Category() {
                     </button>
                 </section>
                 <div className={style.cardsWrapper}>
-                  <section className={style.containerBody}>
-                      {loading && <p>Carregando pedidos...</p>}
-                      {!loading && categories.length > 0 ? (
-                          categories.map((category) =>
-                              <CardCategory category={category} />
-                          )) : (
-                          !loading && <p>Nenhum pedido encontrado</p>
-                      )}
-                  </section>
+                    <section className={style.containerBody}>
+                        {loading && <p>Carregando pedidos...</p>}
+                        {!loading && categories.length > 0 ? (
+                            categories.map((category) =>
+                                <CardCategory category={category} />
+                            )) : (
+                            !loading && <p>Nenhum pedido encontrado</p>
+                        )}
+                    </section>
                 </div>
             </section>
         </main>
