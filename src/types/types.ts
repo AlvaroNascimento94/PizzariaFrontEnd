@@ -25,7 +25,7 @@ interface OrderData {
     name: string;
     email: string;
   };
-  orderProducts?: Array<{
+  orderProducts: Array<{
     id: string;
     orderId: string;
     productId: string;
@@ -53,6 +53,7 @@ interface OrderData {
     };
   }>;
 }
+
 interface ProductData {
     id: string;
     categoryId: string;
@@ -67,6 +68,7 @@ interface ProductData {
     updatedAt: string;
   
 }
+
 interface OrderProductData {
   id: string;
   orderId: string;
@@ -134,10 +136,12 @@ interface EmployeeData {
   phone: string
   accessProfile: Profile
 }
+
 interface AccessProfile {
     id: string;
     name: string;
 }
+
 interface User {
   id: string;
   name: string;
@@ -160,4 +164,46 @@ interface AuthContextData {
   can: (systemOption: string, permission: string) => boolean;
 }
 
-export type { OrderData, OrderProductData, CategoryData, EmployeeData, AccessProfile, User, Profile, AuthContextData, ProductData};
+interface Table {
+  id: string;
+  name: string;
+  available: boolean;
+}
+
+interface OrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: number;
+  description?: string;
+}
+
+interface CardCozinhaProps {
+    item: OrderProductData
+    onUpdate: () => void
+}
+
+interface TableGroupData {
+    tableId: string;
+    tableName: string;
+    totalOrders: number;
+    totalPrice: number;
+    createdAt: string;
+    status: string;
+    statusPriority: number;
+    itemsByStatus: {
+        aguardando: number;
+        emPreparo: number;
+        pronto: number;
+        entregue: number;
+        finalizado: number;
+        cancelado: number;
+    };
+    orders: any[];
+}
+
+interface OrderProps {
+    order: TableGroupData;
+}
+
+export type { OrderData, OrderProductData, CategoryData, EmployeeData, AccessProfile, User, Profile, AuthContextData, ProductData,Table, OrderItem, CardCozinhaProps, OrderProps };
