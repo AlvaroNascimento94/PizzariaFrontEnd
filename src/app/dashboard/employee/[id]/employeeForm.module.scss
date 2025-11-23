@@ -313,6 +313,36 @@
   }
 }
 
+.imagePreview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+
+  img {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.removeButton {
+  padding: 8px 16px;
+  background-color: var(--bordo);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #8b2424;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(163, 45, 45, 0.3);
+  }
+}
+
 .formActions {
   display: flex;
   gap: 16px;

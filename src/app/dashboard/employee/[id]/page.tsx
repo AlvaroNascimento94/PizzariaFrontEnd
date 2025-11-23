@@ -12,7 +12,8 @@ export default function EmployeeForm() {
     const [id, setId] = useState()
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [banner, setBanner] = useState("");
+    const [banner, setBanner] = useState<File | null>(null);
+    const [bannerPreview, setBannerPreview] = useState<string | undefined>(undefined);
     const [active, setActive] = useState(true);
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
@@ -38,7 +39,7 @@ export default function EmployeeForm() {
         else if (isAdmin) {
             return '/dashboard/employee';
         }
-        else{
+        else {
             return '/dashboard';
         }
     }
@@ -81,6 +82,14 @@ export default function EmployeeForm() {
         }
     }
 
+    function handleBannerChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (file) {
+            setBanner(file);
+            setBannerPreview(URL.createObjectURL(file));
+        }
+    }
+
     async function loadEmployee() {
         setLoadingData(true);
         try {
@@ -95,7 +104,9 @@ export default function EmployeeForm() {
             console.log("Dados recebidos:", response.data);
             setId(response.data.id)
             setName(response.data.name);
-            setBanner(response.data.banner)
+            if (response.data.banner) {
+                setBannerPreview(`http://localhost:3333/files/${response.data.banner}`);
+            }
             setEmail(response.data.email);
             setPhone(response.data.phone || "")
             setAccessProfileId(response.data.accessProfile.id);
@@ -111,60 +122,87 @@ export default function EmployeeForm() {
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+
+        // Validações antes de enviar
+        if (!name.trim()) {
+            alert("Nome é obrigatório!");
+            return;
+        }
+
+        if (!email.trim()) {
+            alert("E-mail é obrigatório!");
+            return;
+        }
+
+        if (!isEditing && !password) {
+            alert("Senha é obrigatória para criar um novo funcionário!");
+            return;
+        }
+
+        if (!isEditing && isAdmin && !accessProfileId) {
+            alert("Cargo é obrigatório!");
+            return;
+        }
+
         setLoading(true);
 
         try {
             const token = getCookieCliente();
-            let data: any = {
-                name,
-                email,
-                phone
-            };
+            const formData = new FormData();
+
+            formData.append('name', name.trim());
+            formData.append('email', email.trim());
+            formData.append('phone', phone.trim());
 
             if (!isEditing && isAdmin) {
-                data = {
-                    ...data,
-                    password,
-                    accessProfileId,
-                    active
-                };
+                formData.append('password', password);
+                formData.append('accessProfileId', accessProfileId);
+                formData.append('active', String(active));
             }
 
             if (isEditing && isAdmin && !isEditingSelf) {
-                data = {
-                    ...data,
-                    accessProfileId,
-                    active
-                };
+                formData.append('accessProfileId', accessProfileId);
+                formData.append('active', String(active));
             }
 
-            if (isEditingSelf) {
-                data = {
-                    ...data,
-                    password: password || undefined
-                };
+            if (isEditingSelf && password) {
+                formData.append('password', password);
             }
+
+            if (banner) {
+                formData.append('file', banner);
+            }
+
+            console.log("Enviando dados:", {
+                name: name.trim(),
+                email: email.trim(),
+                phone: phone.trim(),
+                accessProfileId,
+                active,
+                hasFile: !!banner,
+                isEditing
+            });
 
             if (isEditing) {
                 const endpoint = isEditingSelf ? '/me' : `/user/${employeeId}`;
-                await api.put(endpoint, data, {
+                await api.put(endpoint, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
             } else {
-                await api.post("/user", data, {
+                await api.post("/user", formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
             }
 
-
             router.push(getBackRoute());
-        } catch (error) {
+        } catch (error: any) {
             console.error("Erro ao salvar funcionário:", error);
-            alert(`Erro ao ${isEditing ? 'atualizar' : 'criar'} funcionário!`);
+            const errorMessage = error?.response?.data?.error || `Erro ao ${isEditing ? 'atualizar' : 'criar'} funcionário!`;
+            alert(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -257,12 +295,29 @@ export default function EmployeeForm() {
                                     <label>
                                         <span className={styles.icon}>📷</span> Foto do Funcionário (opcional)
                                     </label>
-                                    <div className={styles.uploadArea}>
-                                        <div className={styles.uploadIcon}>📁</div>
-                                        <p>Clique para fazer upload ou arraste a imagem</p>
-                                        <span>PNG, JPG até 5MB</span>
-                                        <input type="file" accept="image/*" />
-                                    </div>
+
+                                    {bannerPreview ? (
+                                        <div className={styles.imagePreview}>
+                                            <img src={bannerPreview} alt="Foto do funcionário" width={250} height={250} style={{ objectFit: 'cover', borderRadius: 8 }} />
+                                            <button type="button" onClick={() => {
+                                                setBanner(null);
+                                                setBannerPreview(undefined);
+                                            }} className={styles.removeButton}>
+                                                Remover Foto
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className={styles.uploadArea}>
+                                            <div className={styles.uploadIcon}>📁</div>
+                                            <p>{banner ? banner.name : 'Clique para fazer upload ou arraste a imagem'}</p>
+                                            <span>PNG, JPG até 5MB</span>
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleBannerChange}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
 
                                 {isAdmin && (
@@ -304,7 +359,7 @@ export default function EmployeeForm() {
                                 <span className={styles.icon}>👤</span>
                                 {loading ? 'Salvando...' : (isEditing ? 'Atualizar Funcionário' : 'Cadastrar Funcionário')}
                             </button>
-                            
+
                         </div>
                     </form>
                 </section>
