@@ -103,6 +103,10 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .productsGrid {
@@ -111,8 +115,8 @@
   gap: 20px;
   overflow-y: auto;
   padding-right: 8px;
-  flex: 1;
-  height: auto;
+  height: 100%;
+  max-height: calc(100vh - 280px);
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
