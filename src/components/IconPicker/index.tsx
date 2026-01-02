@@ -12,7 +12,7 @@ export function IconPicker({ selectedIcon, onSelect }: IconPickerProps) {
         "🍕", "🍰","🍮","🍫","🥓",
         "🥗", "🍔", "🍟", "🌭", "🌮",
         "🍝", "🍗", "🥩", "🦐", "🐟",
-        "☕", "🍺", "🍷","🥤"
+        "☕", "🍺", "🍷","🥤","🍸","🍹"
     ];
 
     function handleSelectIcon(emoji: string) {
