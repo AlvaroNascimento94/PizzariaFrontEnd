@@ -1,5 +1,5 @@
 .container {
-  min-height: 100vh;
+  height: calc(100vh - 6rem);
   background: var(--bege);
   padding: 1rem;
 }
@@ -8,19 +8,21 @@
   display: grid;
   grid-template-columns: 1fr 400px;
   gap: 1.5rem;
-  max-width: 1400px;
+  width: 100%;
+  height: calc(100vh - 7rem);
   margin: 0 auto;
 }
 
 .leftPanel {
   background: #fff;
   border-radius: 16px;
+  height: calc(100vh - 8rem);
   padding: 1.5rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   h1 {
     font-size: 1.8rem;
     color: var(--black);
@@ -29,17 +31,17 @@
 }
 
 .tableSelector {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
-  
+
   label {
     font-weight: 600;
     font-size: 1.1rem;
     color: var(--black);
   }
-  
+
   select {
     flex: 1;
     padding: 0.75rem 1rem;
@@ -50,7 +52,7 @@
     outline: none;
     cursor: pointer;
     transition: border 0.2s;
-    
+
     &:focus {
       border-color: var(--laranja);
     }
@@ -60,7 +62,7 @@
 .filters {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .searchInput,
@@ -72,7 +74,7 @@
   background: #faf9f6;
   outline: none;
   transition: border 0.2s;
-  
+
   &:focus {
     border-color: var(--laranja);
   }
@@ -94,20 +96,20 @@
   max-height: calc(100vh - 350px);
   overflow-y: auto;
   padding-right: 0.5rem;
-  
+
   &::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: var(--bege);
     border-radius: 4px;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: var(--laranja);
     border-radius: 4px;
-    
+
     &:hover {
       background: var(--bordo);
     }
@@ -122,7 +124,7 @@
   display: flex;
   flex-direction: column;
   transition: all 0.2s;
-  
+
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     border-color: var(--laranja);
@@ -131,10 +133,10 @@
 
 .productImage {
   width: 100%;
-  height: 140px;
+  height: 110px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   background: #f3f3f3;
 }
 
@@ -142,18 +144,18 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  
+
   h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.25rem 0;
     color: var(--black);
   }
-  
+
   p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #666;
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 0.5rem 0;
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -171,7 +173,7 @@
 }
 
 .price {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--bordo);
 }
@@ -181,12 +183,12 @@
   color: #fff;
   border: none;
   border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-size: 0.95rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  
+
   &:hover {
     background: var(--bordo);
   }
@@ -199,7 +201,7 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 2rem);
+  max-height: calc(100vh - 8rem);
   position: sticky;
   top: 1rem;
 }
@@ -208,13 +210,13 @@
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid var(--bege);
-  
+
   h2 {
     font-size: 1.5rem;
     color: var(--black);
     margin: 0 0 0.5rem 0;
   }
-  
+
   p {
     font-size: 1rem;
     color: #666;
@@ -236,16 +238,16 @@
   overflow-y: auto;
   margin-bottom: 1rem;
   padding-right: 0.5rem;
-  
+
   &::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: var(--bege);
     border-radius: 3px;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: var(--laranja);
     border-radius: 3px;
@@ -264,7 +266,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75rem;
-  
+
   h4 {
     margin: 0;
     font-size: 1rem;
@@ -301,7 +303,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
     background: var(--bordo);
   }
@@ -322,7 +324,7 @@
   margin-left: auto;
   opacity: 0.7;
   transition: opacity 0.2s;
-  
+
   &:hover {
     opacity: 1;
   }
@@ -330,14 +332,14 @@
 
 .observationBox {
   margin-bottom: 1rem;
-  
+
   label {
     display: block;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--black);
   }
-  
+
   textarea {
     width: 100%;
     padding: 0.75rem;
@@ -348,7 +350,7 @@
     resize: none;
     background: #faf9f6;
     outline: none;
-    
+
     &:focus {
       border-color: var(--laranja);
     }
@@ -395,11 +397,11 @@
 .submitButton {
   background: var(--bordo);
   color: #fff;
-  
+
   &:hover:not(:disabled) {
     background: #8a2525;
   }
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -409,17 +411,17 @@
 .cancelButton {
   background: #e0e0e0;
   color: var(--black);
-  
+
   &:hover {
     background: #d0d0d0;
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1023px) {
   .layout {
     grid-template-columns: 1fr;
   }
-  
+
   .rightPanel {
     position: relative;
     top: 0;
