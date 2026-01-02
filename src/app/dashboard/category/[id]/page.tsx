@@ -152,20 +152,6 @@ export default function CategoryForm() {
 
                                 <div className={style.inputGroup}>
                                     <label>
-                                        <span className={style.icon}>📝</span> Descrição (Opcional)
-                                    </label>
-                                    <textarea
-                                        placeholder="Ex: Deliciosas pizzas artesanais feitas no forno a lenha"
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
-                                        rows={4}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className={style.rightColumn}>
-                                <div className={style.inputGroup}>
-                                    <label>
                                         <span className={style.icon}>🎨</span> Cor da Categoria *
                                     </label>
                                     <div className={style.colorPicker}>
@@ -177,6 +163,10 @@ export default function CategoryForm() {
                                         <span className={style.colorCode}>{color}</span>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className={style.rightColumn}>
+
 
                                 <div className={style.iconGroup}>
                                     <IconPicker
@@ -188,7 +178,7 @@ export default function CategoryForm() {
                         </div>
 
                         <div className={style.formActions}>
-                            
+
                             <button
                                 type="button"
                                 className={style.cancelButton}
