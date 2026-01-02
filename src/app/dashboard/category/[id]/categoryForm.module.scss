@@ -41,7 +41,6 @@
   padding: 20px 40px;
   color: var(--offwhite);
   border-bottom: none;
- 
 
   @media (max-width: 768px) {
     padding: 24px 30px;
@@ -168,27 +167,30 @@
   border-radius: 10px;
   background-color: white;
   transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
 
   &:hover {
     border-color: var(--laranja);
   }
 
   input[type="color"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .colorVisual {
     width: 55px;
     height: 30px;
-    border: none;
+    border: 2px solid var(--bege);
     border-radius: 8px;
-    cursor: pointer;
-    padding: 0;
-
-    &::-webkit-color-swatch-wrapper {
-      padding: 0;
-    }
-
-    &::-webkit-color-swatch {
-      border: 2px solid var(--bege);
-      border-radius: 8px;
-    }
+    flex-shrink: 0;
   }
 
   .colorCode {

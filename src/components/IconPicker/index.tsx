@@ -9,7 +9,7 @@ interface IconPickerProps {
 export function IconPicker({ selectedIcon, onSelect }: IconPickerProps) {
 
     const emojis = [
-        "🍕", "🍰","🍮",
+        "🍕", "🍰","🍮","🍫","🥓",
         "🥗", "🍔", "🍟", "🌭", "🌮",
         "🍝", "🍗", "🥩", "🦐", "🐟",
         "☕", "🍺", "🍷","🥤"

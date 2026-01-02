@@ -160,6 +160,7 @@ export default function CategoryForm() {
                                             value={color}
                                             onChange={(e) => setColor(e.target.value)}
                                         />
+                                        <div className={style.colorVisual} style={{ backgroundColor: color }}></div>
                                         <span className={style.colorCode}>{color}</span>
                                     </div>
                                 </div>
