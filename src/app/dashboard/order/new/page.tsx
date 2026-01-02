@@ -134,7 +134,6 @@ export default function NewOrderPage() {
         });
       }
 
-      alert("Pedido criado com sucesso!");
       router.push("/dashboard");
     } catch (error) {
       console.error("Erro ao criar pedido:", error);

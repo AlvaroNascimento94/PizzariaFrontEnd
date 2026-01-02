@@ -77,7 +77,7 @@ export default function Category() {
                             categories.map((category) =>
                                 <CardCategory category={category} />
                             )) : (
-                            !loading && <p>Nenhum pedido encontrado</p>
+                            !loading && <p>Nenhuma categoria encontrada</p>
                         )}
                     </section>
                 </div>
