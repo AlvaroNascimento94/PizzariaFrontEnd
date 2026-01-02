@@ -171,6 +171,8 @@ export default function EmployeeForm() {
 
             if (banner) {
                 formData.append('file', banner);
+            } else if (isEditing && !bannerPreview) {
+                formData.append('removeBanner', 'true');
             }
 
             console.log("Enviando dados:", {
