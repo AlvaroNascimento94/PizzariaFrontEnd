@@ -29,37 +29,34 @@
   padding: 1rem;
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 140px; // 3 linhas visíveis (mesmo tamanho de antes)
+  max-height: 140px;
   background-color: white;
   border: 2px solid var(--bege);
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-  // Responsivo: Tablet (telas médias)
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(7, 1fr); // 6 colunas
+    grid-template-columns: repeat(7, 1fr);
     max-height: 180px;
   }
 
-  // Responsivo: Tablet pequeno
   @media (max-width: 768px) {
-    grid-template-columns: repeat(7, 1fr); // 5 colunas
+    grid-template-columns: repeat(7, 1fr);
     gap: 0.5rem;
     padding: 0.75rem;
     max-height: 160px;
   }
   @media (max-width: 624px) {
-    grid-template-columns: repeat(6, 1fr); // 5 colunas
+    grid-template-columns: repeat(6, 1fr);
     gap: 0.5rem;
     padding: 0.75rem;
     max-height: 160px;
   }
-  // Responsivo: Mobile
   @media (max-width: 480px) {
-    grid-template-columns: repeat(4, 1fr); // 4 colunas
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
     padding: 0.5rem;
-    grid-auto-rows: 50px; // Botões menores
+    grid-auto-rows: 50px;
     max-height: 150px;
   }
 
@@ -95,14 +92,13 @@
   min-width: 60px;
   min-height: 60px;
 
-  // Responsivo: Mobile
   @media (max-width: 480px) {
     min-width: 50px;
     min-height: 50px;
     padding: 0.5rem;
 
     span {
-      font-size: 24px !important; // Emojis menores no mobile
+      font-size: 24px !important;
     }
   }
 

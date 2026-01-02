@@ -123,7 +123,6 @@ export default function EmployeeForm() {
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
-        // Validações antes de enviar
         if (!name.trim()) {
             alert("Nome é obrigatório!");
             return;
@@ -193,7 +192,6 @@ export default function EmployeeForm() {
                     }
                 });
 
-                // Se está editando o próprio perfil, atualiza o contexto
                 if (isEditingSelf) {
                     await refreshUser();
                 }

@@ -5,7 +5,7 @@ import { api } from "@/services/api";
 import { getCookieCliente } from "@/lib/cookieClient";
 import { useAuth } from "@/hooks/useAuth";
 import styles from "./orderTable.module.scss";
-import { CategoryData, ProductData, Table, OrderItem, OrderData} from "@/types/types";
+import { CategoryData, ProductData, Table, OrderItem, OrderData } from "@/types/types";
 
 
 export default function OrderTablePage() {
@@ -37,7 +37,7 @@ export default function OrderTablePage() {
 
       const interval = setInterval(() => {
         loadData();
-      }, 30000); 
+      }, 30000);
       return () => clearInterval(interval);
     }
   }, [authLoading, can, router, orderId]);
@@ -49,19 +49,16 @@ export default function OrderTablePage() {
   async function loadData() {
     try {
       const token = getCookieCliente();
-      
-      // Primeiro busca o pedido para pegar o tableId
-      const orderRes = await api.get(`/order/detail/${orderId}`, { 
-        headers: { Authorization: `Bearer ${token}` } 
+      const orderRes = await api.get(`/order/detail/${orderId}`, {
+        headers: { Authorization: `Bearer ${token}` }
       });
-      
+
       const orderData = orderRes.data;
       console.log(orderData);
 
       const mesaId = orderData.tableId;
       setTableId(mesaId);
-      
-      // Agora busca todos os dados necessários
+
       const [tableRes, categoriesRes, productsRes, ordersRes] = await Promise.all([
         api.get(`/tables`, { headers: { Authorization: `Bearer ${token}` } }),
         api.get("/categories", { headers: { Authorization: `Bearer ${token}` } }),
@@ -73,12 +70,10 @@ export default function OrderTablePage() {
       setTable(currentTable);
       setCategories(categoriesRes.data);
       setProducts(productsRes.data.filter((p: ProductData) => p.status));
-      
-      // ordersRes.data retorna um array com agrupamento por mesa
-      // Precisamos pegar o grupo da mesa específica e depois seus pedidos
+
       const tableGroup = ordersRes.data.find((group: any) => group.tableId === mesaId);
       console.log("Table group:", tableGroup);
-      
+
       if (tableGroup && tableGroup.orders) {
         setExistingOrders(tableGroup.orders);
       } else {
@@ -142,11 +137,9 @@ export default function OrderTablePage() {
     setLoading(true);
     try {
       const token = getCookieCliente();
-      
-      // Verificar se já existe um pedido aberto para esta mesa
+
       let orderId = existingOrders.find(o => o.orderStatus.name !== 'Finalizado' && o.orderStatus.name !== 'Cancelado')?.id;
 
-      // Se não existir, criar um novo pedido
       if (!orderId) {
         const orderRes = await api.post("/order", { tableId }, {
           headers: { Authorization: `Bearer ${token}` }
@@ -154,7 +147,6 @@ export default function OrderTablePage() {
         orderId = orderRes.data.id;
       }
 
-      // Adicionar itens
       for (const item of orderItems) {
         await api.post("/order/item", {
           orderId,
@@ -169,7 +161,7 @@ export default function OrderTablePage() {
       alert("Itens adicionados com sucesso!");
       setOrderItems([]);
       setObservation("");
-      loadData(); // Recarregar dados
+      loadData();
     } catch (error) {
       console.error("Erro ao adicionar itens:", error);
       alert("Erro ao adicionar itens!");
@@ -197,7 +189,6 @@ export default function OrderTablePage() {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      alert("Conta fechada com sucesso!");
       router.push("/dashboard");
     } catch (error) {
       console.error("Erro ao fechar conta:", error);
@@ -208,8 +199,7 @@ export default function OrderTablePage() {
   }
 
   const newItemsTotal = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  
-  // Calcular total dos pedidos existentes a partir dos produtos
+
   const existingTotal = existingOrders.reduce((sum, order) => {
     if (!order.orderProducts || !Array.isArray(order.orderProducts)) return sum;
     const orderTotal = order.orderProducts.reduce((orderSum, item) => {
@@ -217,7 +207,7 @@ export default function OrderTablePage() {
     }, 0);
     return sum + orderTotal;
   }, 0);
-  
+
   const subtotal = newItemsTotal + existingTotal;
   const serviceCharge = subtotal * 0.10;
   const grandTotal = subtotal + serviceCharge;
@@ -288,7 +278,6 @@ export default function OrderTablePage() {
             <p>Aberta às {currentTime || '...'}</p>
           </div>
 
-          {/* Pedidos Anteriores */}
           {existingOrders && existingOrders.length > 0 && (
             <div className={styles.previousOrders}>
               <h3>📋 Pedidos Anteriores</h3>
@@ -315,7 +304,6 @@ export default function OrderTablePage() {
             </div>
           )}
 
-          {/* Novos Itens */}
           {orderItems.length > 0 && (
             <>
               <div className={styles.newItems}>
