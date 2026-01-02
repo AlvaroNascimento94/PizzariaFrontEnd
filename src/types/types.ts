@@ -31,7 +31,7 @@ interface OrderData {
     productId: string;
     quantity: number;
     description?: string;
-    statusId: string; 
+    statusId: string;
     createdAt: string;
     updatedAt: string;
     status: {
@@ -55,18 +55,17 @@ interface OrderData {
 }
 
 interface ProductData {
-    id: string;
-    categoryId: string;
-    name: string;
-    description: string;
-    price: number;
-    banner: string;
-    status: boolean;
-    userCreateId: string;
-    userUpdateId: string;
-    createdAt: string;
-    updatedAt: string;
-  
+  id: string;
+  categoryId: string;
+  name: string;
+  description: string;
+  price: number;
+  banner: string;
+  status: boolean;
+  userCreateId: string;
+  userUpdateId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface OrderProductData {
@@ -128,18 +127,18 @@ interface CategoryData {
 }
 
 interface EmployeeData {
-  id: string
-  name: string
-  email: string
-  banner: string | null
-  active: boolean
-  phone: string
-  accessProfile: Profile
+  id: string;
+  name: string;
+  email: string;
+  banner: string | null;
+  active: boolean;
+  phone: string;
+  accessProfile: Profile;
 }
 
 interface AccessProfile {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
 
 interface User {
@@ -162,6 +161,7 @@ interface AuthContextData {
   isAdmin: boolean;
   loading: boolean;
   can: (systemOption: string, permission: string) => boolean;
+  refreshUser: () => Promise<void>;
 }
 
 interface Table {
@@ -179,31 +179,45 @@ interface OrderItem {
 }
 
 interface CardCozinhaProps {
-    item: OrderProductData
-    onUpdate: () => void
+  item: OrderProductData;
+  onUpdate: () => void;
 }
 
 interface TableGroupData {
-    tableId: string;
-    tableName: string;
-    totalOrders: number;
-    totalPrice: number;
-    createdAt: string;
-    status: string;
-    statusPriority: number;
-    itemsByStatus: {
-        aguardando: number;
-        emPreparo: number;
-        pronto: number;
-        entregue: number;
-        finalizado: number;
-        cancelado: number;
-    };
-    orders: any[];
+  tableId: string;
+  tableName: string;
+  totalOrders: number;
+  totalPrice: number;
+  createdAt: string;
+  status: string;
+  statusPriority: number;
+  itemsByStatus: {
+    aguardando: number;
+    emPreparo: number;
+    pronto: number;
+    entregue: number;
+    finalizado: number;
+    cancelado: number;
+  };
+  orders: any[];
 }
 
 interface OrderProps {
-    order: TableGroupData;
+  order: TableGroupData;
 }
 
-export type { OrderData, OrderProductData, CategoryData, EmployeeData, AccessProfile, User, Profile, AuthContextData, ProductData,Table, OrderItem, CardCozinhaProps, OrderProps };
+export type {
+  OrderData,
+  OrderProductData,
+  CategoryData,
+  EmployeeData,
+  AccessProfile,
+  User,
+  Profile,
+  AuthContextData,
+  ProductData,
+  Table,
+  OrderItem,
+  CardCozinhaProps,
+  OrderProps,
+};

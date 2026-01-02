@@ -13,32 +13,52 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [permissionsByModule, setPermissionsByModule] = useState<Record<string, string[]>>({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function loadUserPermissions() {
-      try {
-        const token = getCookieCliente();
-        
-        if (!token) {
-          setLoading(false);
-          return;
-        }
+  async function loadUserPermissions() {
+    try {
+      const token = getCookieCliente();
 
-        const response = await api.get("/me/permissions", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setUser(response.data.user);
-        setProfile(response.data.profile);
-        setPermissionsByModule(response.data.permissionsByModule);
-      } catch (error) {
-        console.error("Erro ao carregar permissões:", error);
-      } finally {
+      if (!token) {
         setLoading(false);
+        return;
       }
-    }
 
+      const response = await api.get("/me/permissions", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setUser(response.data.user);
+      setProfile(response.data.profile);
+      setPermissionsByModule(response.data.permissionsByModule);
+    } catch (error) {
+      console.error("Erro ao carregar permissões:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function refreshUser() {
+    const token = getCookieCliente();
+
+    if (!token) return;
+
+    try {
+      const response = await api.get("/me/permissions", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setUser(response.data.user);
+      setProfile(response.data.profile);
+      setPermissionsByModule(response.data.permissionsByModule);
+    } catch (error) {
+      console.error("Erro ao atualizar dados do usuário:", error);
+    }
+  }
+
+  useEffect(() => {
     loadUserPermissions();
   }, []);
 
@@ -57,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAdmin,
         loading,
         can,
+        refreshUser,
       }}
     >
       {children}

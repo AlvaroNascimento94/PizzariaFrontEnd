@@ -23,7 +23,7 @@ export default function EmployeeForm() {
     const [loadingData, setLoadingData] = useState(false);
     const [currentUserId, setCurrentUserId] = useState("");
 
-    const { isAdmin, user, profile } = useAuth();
+    const { isAdmin, user, profile, refreshUser } = useAuth();
     const router = useRouter();
     const params = useParams();
     const employeeId = params.id as string;
@@ -192,6 +192,11 @@ export default function EmployeeForm() {
                         Authorization: `Bearer ${token}`
                     }
                 });
+
+                // Se está editando o próprio perfil, atualiza o contexto
+                if (isEditingSelf) {
+                    await refreshUser();
+                }
             } else {
                 await api.post("/user", formData, {
                     headers: {
