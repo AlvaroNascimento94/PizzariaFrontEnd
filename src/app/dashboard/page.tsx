@@ -4,13 +4,15 @@ import { Order } from "./order";
 import style from "./dashboard.module.scss"
 import { Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { api } from "@/services/api";
 import { getCookieCliente } from "@/lib/cookieClient";
+import { OrderProps } from "@/types/types";
 
 export default function Dashboard() {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState<OrderProps["order"][]>([]);
     const [loading, setLoading] = useState(true);
+    const isFetchingRef = useRef(false);
 
     const router = useRouter()
 
@@ -20,7 +22,10 @@ export default function Dashboard() {
 
     useEffect(() => {
         async function loadOrders() {
+            if (isFetchingRef.current) return;
+
             try {
+                isFetchingRef.current = true;
                 const token = getCookieCliente();
 
                 const response = await api.get("/orders-by-table", {
@@ -30,15 +35,37 @@ export default function Dashboard() {
                 });
 
                 setOrders(response.data);
-                console.log("Mesas carregadas:", response.data);
             } catch (error) {
                 console.error("Erro ao carregar pedidos:", error);
             } finally {
+                isFetchingRef.current = false;
                 setLoading(false);
             }
 
         }
+
         loadOrders();
+
+        const interval = setInterval(loadOrders, 1500);
+
+        function refreshOnFocus() {
+            loadOrders();
+        }
+
+        function refreshOnVisible() {
+            if (document.visibilityState === "visible") {
+                loadOrders();
+            }
+        }
+
+        window.addEventListener("focus", refreshOnFocus);
+        document.addEventListener("visibilitychange", refreshOnVisible);
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener("focus", refreshOnFocus);
+            document.removeEventListener("visibilitychange", refreshOnVisible);
+        };
     }, []);
 
     return (
@@ -57,7 +84,7 @@ export default function Dashboard() {
 
                     {!loading && orders.length > 0 ? (
                         orders.map((order) =>
-                            <Order order={order} key={order} />)
+                            <Order order={order} key={order.tableId} />)
                     ) : (
                         !loading && <p>Nenhum pedido encontrado</p>
                     )}
